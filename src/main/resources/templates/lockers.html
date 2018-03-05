@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html
+	layout:decorator="layouts/main"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+
+<div layout:fragment="loginContent">
+
+	hello lockers
+	<br/>
+	<p th:text="${param.resultMsg != null}? ${param.resultMsg[0]} : ''">Error with the renting!</p>
+	<br/><br/>
+	
+	<ul>
+	    <li th:each="item : ${lockerList}">
+	        <span th:text="'Id: ' + ${item.id} + ': '">Error!</span>
+	        <span th:text="${item.rented}? 'Rented' : 'Free'">Error!</span>
+	        <span th:if="${item.rented}" th:text="${item.rentedByLoginedUser}? 'by You!' : 'by Other user!'">Error!</span>
+	        <form method="POST" th:action="@{/rentLocker(id=${item.id})}">
+		        <button type="submit"
+		        	th:id="'rentButton' + ${item.id}"
+		        	th:text="${item.rented}? 'Already rented!' : 'Rent it!'"
+		        	th:disabled="${item.rented}? true : false"
+		        		
+		        	>
+		        	Error with the button!
+		        </button>
+	        </form>
+	        <br/>
+	    </li>
+	</ul>
+	
+	<br/><br/>
+	<a href="/x">Navigate to the X Page!</a>
+	
+</div>
+
+</body>
+
+</html>

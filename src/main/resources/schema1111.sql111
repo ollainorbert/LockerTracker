@@ -1,0 +1,28 @@
+create table Employees
+(
+	id bigint not null,
+	name varchar(20) not null,
+	createdAt TIMESTAMP not null,
+	primary key(id)
+);
+
+create table Lockers
+(
+	id smallint not null,
+	createdAt TIMESTAMP not null,
+	primary key(id)
+);
+
+-- what if, locker with two owner (day/night) or more;
+-- we have to separate, this way, itt will be easier in the future
+create table LockerRentals
+(
+	id bigint not null,
+	lockerId smallint not null,
+	employeeId bigint not null,
+	createdAt TIMESTAMP not null,
+	primary key(id)
+);
+
+CREATE UNIQUE INDEX LockerRentals
+  ON LockerRentals(lockerId, employeeId);
