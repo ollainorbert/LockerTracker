@@ -12,4 +12,11 @@ public class PageAttributeConsts {
 		public static final String USER = "user";
 	}
 
+	public static class LANGUAGE {
+		public static final String LANG = "lang";
+		public static final String DEFAULT_LOCALE = "en_US";
+	}
+
+	public static final String REQUEST_LOG_INTERCEPTOR_PATTERN = "/**";
+
 }

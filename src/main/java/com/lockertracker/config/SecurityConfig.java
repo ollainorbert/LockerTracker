@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(RoutingConsts.REGISTRATION).permitAll()
 					.antMatchers(RoutingConsts.REGISTRATION_REQ).permitAll()
 					.antMatchers("/h2/**").permitAll()
+					.antMatchers(RoutingConsts.LOGIN + "/**").permitAll()
 					.anyRequest().authenticated()
 				.and()
 					.formLogin()

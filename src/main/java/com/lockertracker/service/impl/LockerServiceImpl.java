@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lockertracker.converter.LockerModelConverter;
 import com.lockertracker.model.EmployeeModel;
 import com.lockertracker.model.LockerDBModel;
 import com.lockertracker.model.LockerGUIModel;
@@ -83,7 +82,7 @@ public class LockerServiceImpl implements LockerService {
 		List<LockerDBModel> lockersFromDB = lockerRepository.findAll();
 		long employeeId = employeeModel.getId();
 
-		return LockerModelConverter.convertDBtoGUI(lockersFromDB, employeeId);
+		return lockerServiceHelper.convertDBtoGUI(lockersFromDB, employeeId);
 	}
 
 }

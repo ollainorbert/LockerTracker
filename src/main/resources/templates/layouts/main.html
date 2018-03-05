@@ -10,9 +10,18 @@
   		 <div>
   			 <a href="/">Home</a>
   			 <a href="/lockers">Lockers</a>
+  			 <p th:text="#{greeting}"></p> 
   		 </div>
+  		  <div>
+  		  	<span th:text="#{lang.change}"></span>:
+			<select id="locales">
+				<option value="" />
+			    <option value="eng" th:text="#{lang.eng}"></option>
+			    <option value="hu" th:text="#{lang.hu}"></option>
+			</select>
+  		  </div>
 		<nav>
-			<span sec:authentication="name">You are not logged in! </span>
+			Welcome <span sec:authentication="name"> You are not logged in! </span> !
 			<form sec:authorize="isAuthenticated()" id="formlogout" th:action="@{/logout}" method="post">
 				<a href="javascript:{}" onclick="document.getElementById('formlogout').submit(); return false;">Logout</a>
 			</form>
@@ -35,5 +44,18 @@
 	
 	</div>
 
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    $("#locales").change(function () {
+	        var selectedOption = $('#locales').val();
+	        if (selectedOption != '') {
+	        	window.location.replace('?lang=' + selectedOption);
+	        }
+	    });
+	});
+	</script>
 </body>
 </html>
