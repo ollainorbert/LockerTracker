@@ -16,7 +16,17 @@ public class ExceptionController {
 
 	@ExceptionHandler(value = BaseLockerException.class)
 	public ModelAndView baseLockerHandler(BaseLockerException exception) {
-		logger.error(exception.getMessage());
+		logger.error("baseLockerHandler: " + exception.getMessage());
+
+		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, exception.getMessage());
+
+		return modelAndView;
+	}
+
+	@ExceptionHandler(value = Exception.class)
+	public ModelAndView anyExceptionHandler(Exception exception) {
+		logger.error("anyExceptionHandler: " + exception.toString());
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
 		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, exception.getMessage());

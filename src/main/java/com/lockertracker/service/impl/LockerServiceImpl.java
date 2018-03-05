@@ -54,7 +54,7 @@ public class LockerServiceImpl implements LockerService {
 		logger.info("Rent starting for, id: " + id + " locker.");
 		logger.info("Logined (unique) username: " + username + ".");
 
-		LockerDBModel lockerModel = lockerServiceHelper.setReservableLockerBy(id, true, lockerRepository);
+		LockerDBModel lockerModel = lockerServiceHelper.setReservableLockerById(id, true, lockerRepository);
 
 		EmployeeModel employeeModel = employeeRepository.findByUsername(username);
 		lockerModel.setRentedByEmployeeId(employeeModel.getId());
@@ -64,8 +64,8 @@ public class LockerServiceImpl implements LockerService {
 	}
 
 	@Override
-	public void releaseLockerById(final short id) throws BaseLockerException {
-		LockerDBModel lockerModel = lockerServiceHelper.setReservableLockerBy(id, false, lockerRepository);
+	public void releaseLockerById(final String id) throws BaseLockerException {
+		LockerDBModel lockerModel = lockerServiceHelper.setReservableLockerById(id, false, lockerRepository);
 
 		lockerRepository.save(lockerModel);
 		logger.info("Locker release success!");

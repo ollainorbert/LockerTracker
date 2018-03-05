@@ -8,6 +8,6 @@ import com.lockertracker.model.LockerDBModel;
 @Repository
 public interface LockerRepository extends JpaRepository<LockerDBModel, Short> {
 
-	public LockerDBModel findById(short id);
+	public LockerDBModel findById(final short id);
 
 }

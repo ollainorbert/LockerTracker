@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lockertracker.model.LockerDBModel;
 import com.lockertracker.model.LockerGUIModel;
+import com.lockertracker.model.LockerGUIModel.RentedByEnum;
 
 public class LockerModelConverter {
 
@@ -18,6 +19,13 @@ public class LockerModelConverter {
 
 			boolean isRentedByThisUser = (lockerFromDB.getRentedByEmployeeId() == userId) ? true : false;
 			lockerGUIModel.setRentedByLoginedUser(isRentedByThisUser);
+
+			if (!lockerFromDB.isRented()) {
+				lockerGUIModel.setRentedByEnum(RentedByEnum.NOT_RENTED);
+			} else {
+				RentedByEnum rentedBy = (lockerFromDB.getRentedByEmployeeId() == userId) ? RentedByEnum.RENTED_BY_YOU : RentedByEnum.RENTED_BY_OTHER;
+				lockerGUIModel.setRentedByEnum(rentedBy);
+			}
 
 			lockersForGUI.add(lockerGUIModel);
 		}

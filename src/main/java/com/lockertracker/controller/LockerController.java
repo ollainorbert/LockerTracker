@@ -47,6 +47,17 @@ public class LockerController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = RoutingConsts.RELEASE_LOCKER, method = RequestMethod.POST)
+	public ModelAndView releaseLocker(@RequestParam(value = PageAttributeConsts.Locker.RENT_PARAM_ID) final String id,
+			Principal principal) throws BaseLockerException {
+		lockerService.releaseLockerById(id);
+
+		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, "Release success!");
+
+		return modelAndView;
+	}
+
 	@RequestMapping(RoutingConsts.RELEASE_ALL_LOCKER)
 	public String releaseAllLocker() throws BaseLockerException {
 		lockerService.releaseAllLocker();

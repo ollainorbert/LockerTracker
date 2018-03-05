@@ -15,7 +15,7 @@ public interface LockerService {
 
 	public void rentLocker(final String id, final String username) throws BaseLockerException;
 
-	public void releaseLockerById(final short id) throws BaseLockerException;
+	public void releaseLockerById(final String id) throws BaseLockerException;
 
 	public void releaseAllLocker();
 }

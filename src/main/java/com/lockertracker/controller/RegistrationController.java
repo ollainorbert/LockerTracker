@@ -25,6 +25,7 @@ public class RegistrationController {
 	@RequestMapping(RoutingConsts.REGISTRATION)
 	public String registration(Model model) {
 		model.addAttribute(PageAttributeConsts.Registration.USER, new EmployeeModel());
+
 		return ViewConsts.REGISTRATION;
 	}
 
