@@ -12,6 +12,7 @@ import com.lockertracker.resources.PageAttributeConsts;
 import com.lockertracker.resources.RoutingConsts;
 import com.lockertracker.resources.ViewConsts;
 import com.lockertracker.service.EmployeeService;
+import com.lockertracker.service.exception.locker.LockerNotFoundException;
 
 @Controller
 public class RegistrationController {
@@ -23,9 +24,8 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(RoutingConsts.REGISTRATION)
-	public String registration(Model model) {
+	public String registration(Model model) throws LockerNotFoundException {
 		model.addAttribute(PageAttributeConsts.Registration.USER, new EmployeeModel());
-
 		return ViewConsts.REGISTRATION;
 	}
 

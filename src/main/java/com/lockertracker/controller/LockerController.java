@@ -13,18 +13,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lockertracker.model.LockerGUIModel;
 import com.lockertracker.resources.PageAttributeConsts;
+import com.lockertracker.resources.PageMessageIdConsts;
 import com.lockertracker.resources.RoutingConsts;
 import com.lockertracker.resources.ViewConsts;
 import com.lockertracker.service.LockerService;
+import com.lockertracker.service.MessageByLocaleService;
 import com.lockertracker.service.exception.locker.BaseLockerException;
 
 @Controller
 public class LockerController {
 	private LockerService lockerService;
+	private MessageByLocaleService messageByLocaleService;
 
 	@Autowired
-	public void setLockerService(LockerService lockerService) {
+	public LockerController(LockerService lockerService, MessageByLocaleService messageByLocaleService) {
 		this.lockerService = lockerService;
+		this.messageByLocaleService = messageByLocaleService;
 	}
 
 	@RequestMapping(RoutingConsts.LOCKERS)
@@ -42,7 +46,8 @@ public class LockerController {
 		lockerService.rentLocker(id, principal.getName());
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
-		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, "Renting success!");
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
+				messageByLocaleService.getMessage(PageMessageIdConsts.RENT_SUCESS));
 
 		return modelAndView;
 	}
@@ -53,7 +58,7 @@ public class LockerController {
 		lockerService.releaseLockerById(id);
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
-		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, "Release success!");
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, PageMessageIdConsts.RELEASE_SUCESS);
 
 		return modelAndView;
 	}

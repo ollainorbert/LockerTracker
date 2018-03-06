@@ -1,0 +1,10 @@
+package com.lockertracker.resources;
+
+public class ExceptionMessageIdConsts {
+	public static final String LOCKER_NOT_FOUND = "exception.lockerNotFound";
+	public static final String LOCKER_ALREADY_RENTED = "exception.lockerAlreadyRented";
+	public static final String LOCKER_ALREADY_RELEASED = "exception.lockerAlreadyReleased";
+	public static final String USER_NOT_FOUND = "exception.userNotFound";
+	public static final String DATABASE_PROBLEM = "exception.databaseProblem";
+
+}
