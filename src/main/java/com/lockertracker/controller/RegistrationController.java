@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.lockertracker.model.EmployeeModel;
+import com.lockertracker.model.exception.BaseRegistrationValidationException;
 import com.lockertracker.resources.PageAttributeConsts;
 import com.lockertracker.resources.RoutingConsts;
 import com.lockertracker.resources.ViewConsts;
 import com.lockertracker.service.EmployeeService;
-import com.lockertracker.service.exception.locker.LockerNotFoundException;
 
 @Controller
 public class RegistrationController {
@@ -24,13 +24,15 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(RoutingConsts.REGISTRATION)
-	public String registration(Model model) throws LockerNotFoundException {
+	public String registration(Model model) {
 		model.addAttribute(PageAttributeConsts.Registration.USER, new EmployeeModel());
 		return ViewConsts.REGISTRATION;
 	}
 
+	// request
 	@RequestMapping(value = RoutingConsts.REGISTRATION_REQ, method = RequestMethod.POST)
-	public String innerReg(@ModelAttribute EmployeeModel employeeModel) {
+	public String innerReg(@ModelAttribute EmployeeModel employeeModel) throws BaseRegistrationValidationException {
+		employeeModel.validate();
 		employeeService.registerUser(employeeModel);
 		return ViewConsts.LOGIN;
 	}

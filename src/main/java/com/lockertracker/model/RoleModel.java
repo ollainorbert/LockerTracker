@@ -19,7 +19,7 @@ public class RoleModel {
 	private String role;
 
 	@ManyToMany(mappedBy = "roles")
-	private Set<EmployeeModel> users;// = new HashSet<EmployeeModel>();
+	private Set<EmployeeModel> users;
 
 	public RoleModel() {
 	}

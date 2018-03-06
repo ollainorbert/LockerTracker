@@ -8,32 +8,33 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedBy;
+import org.apache.commons.lang3.StringUtils;
+
+import com.lockertracker.model.exception.BaseRegistrationValidationException;
+import com.lockertracker.model.exception.PasswordFormatException;
+import com.lockertracker.model.exception.UserNameFormatException;
 
 @Entity
 @Table(name = "Employees")
-public class EmployeeModel {
+public class EmployeeModel extends DBModel {
 
-	@GeneratedValue
-	@Id
-	private long id;
+	// @GeneratedValue
+	// @Id
+	// private long id;
 
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false, length = MAX_NAME_LENGTH)
 	private String username;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = MAX_PASSWORD_LENGTH)
 	private String password;
 
 	@Column(updatable = false, nullable = false)
-	@CreatedBy
 	private Date createdAt;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -41,13 +42,16 @@ public class EmployeeModel {
 			@JoinColumn(name = "role_id") })
 	private Set<RoleModel> roles;
 
-	public long getId() {
-		return id;
-	}
+	public static final int MAX_NAME_LENGTH = 20;
+	public static final int MAX_PASSWORD_LENGTH = 20;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	// public long getId() {
+	// return id;
+	// }
+	//
+	// public void setId(long id) {
+	// this.id = id;
+	// }
 
 	public String getUsername() {
 		return username;
@@ -100,6 +104,18 @@ public class EmployeeModel {
 		}
 
 		this.roles.add(roleModel);
+	}
+
+	@Override
+	public void validate() throws BaseRegistrationValidationException {
+		if ((StringUtils.isBlank(this.getUsername()) || this.getUsername().length() > MAX_NAME_LENGTH)) {
+			throw new UserNameFormatException();
+		}
+
+		if ((StringUtils.isBlank(this.getPassword()) || this.getPassword().length() > MAX_PASSWORD_LENGTH)) {
+			throw new PasswordFormatException();
+		}
+
 	}
 
 }

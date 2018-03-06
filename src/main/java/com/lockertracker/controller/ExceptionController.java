@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lockertracker.base.BaseExceptionWithLocalization;
+import com.lockertracker.model.exception.BaseRegistrationValidationException;
 import com.lockertracker.resources.PageAttributeConsts;
 import com.lockertracker.resources.ViewConsts;
 import com.lockertracker.service.MessageByLocaleService;
@@ -30,9 +32,18 @@ public class ExceptionController {
 		return modelAndView;
 	}
 
+	@ExceptionHandler(value = BaseRegistrationValidationException.class)
+	public ModelAndView baseRegistrationValidationHandler(
+			BaseRegistrationValidationException baseRegistrationValidationException) {
+		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.REGISTRATION));
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
+				getMessageFrom(baseRegistrationValidationException));
+		return modelAndView;
+	}
+
 	@ExceptionHandler(value = Exception.class)
-	public ModelAndView anyExceptionHandler(Exception exception) {
-		logger.error("anyExceptionHandler: " + exception.toString());
+	public ModelAndView anyRandomExceptionHandler(Exception exception) {
+		logger.error("anyRandomExceptionHandler: " + exception.toString());
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
 		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, exception.getMessage());
@@ -40,9 +51,10 @@ public class ExceptionController {
 		return modelAndView;
 	}
 
-	private String getMessageFrom(BaseLockerException baseLockerException) {
-		logger.error("baseLockerHandler: " + baseLockerException.getMessage());
-		String exceptionMessageId = baseLockerException.getMessage();
+	private String getMessageFrom(BaseExceptionWithLocalization exception) {
+		logger.error("BaseExceptionWithLocalization: " + exception.getMessage());
+		String exceptionMessageId = exception.getMessage();
 		return messageByLocaleService.getMessage(exceptionMessageId);
 	}
+
 }
