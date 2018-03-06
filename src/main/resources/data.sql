@@ -22,11 +22,11 @@ values('false', '0', '2018-02-28 09:00:00');
 insert into Lockerrentals(employee_id, locker_id, created_at)
 values('1', '1', '2018-02-28 09:00:00');
 
-insert into roles(role)
-values('USER');
+insert into roles(role, created_at)
+values('USER', '2018-02-28 10:00:00');
 
-insert into roles(role)
-values('ADMIN');
+insert into roles(role, created_at)
+values('ADMIN', '2018-02-28 10:00:00');
 
 insert into Users_roles(user_id, role_id)
 values('1', '1');

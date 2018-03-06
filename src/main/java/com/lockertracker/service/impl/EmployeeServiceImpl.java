@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.lockertracker.model.EmployeeModel;
-import com.lockertracker.model.RoleModel;
+import com.lockertracker.model.EmployeeDBModel;
+import com.lockertracker.model.RoleDBModel;
 import com.lockertracker.repository.EmployeeRepository;
 import com.lockertracker.repository.RoleRepository;
 import com.lockertracker.resources.RoleConsts;
@@ -30,13 +30,13 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 	}
 
 	@Override
-	public EmployeeModel findByUsername(String username) {
+	public EmployeeDBModel findByUsername(String username) {
 		return employeeRepo.findByUsername(username);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		EmployeeModel employeeModel = this.findByUsername(username);
+		EmployeeDBModel employeeModel = this.findByUsername(username);
 		if (employeeModel == null) {
 			throw new UsernameNotFoundException(username);
 		}
@@ -45,12 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 	}
 
 	@Override
-	public EmployeeModel registerUser(EmployeeModel employeeModel) {
+	public EmployeeDBModel registerUser(EmployeeDBModel employeeModel) {
 		logger.info("New employee!");
 		logger.debug(employeeModel.getUsername());
 		logger.debug(employeeModel.getPassword());
 
-		RoleModel roleModel = roleRepo.findByRole(RoleConsts.USER);
+		RoleDBModel roleModel = roleRepo.findByRole(RoleConsts.USER);
 		if (roleModel != null) {
 			employeeModel.addRoles(roleModel);
 		} else {

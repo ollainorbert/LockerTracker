@@ -5,7 +5,7 @@ public class LockerGUIModel {
 		NOT_RENTED, RENTED_BY_OTHER, RENTED_BY_YOU
 	}
 
-	private short id;
+	private long id;
 	private boolean rented;
 	private boolean rentedByLoginedUser;
 	private RentedByEnum rentedByEnum;
@@ -16,11 +16,11 @@ public class LockerGUIModel {
 	private static final String RENTED_BY_OTHER = "Rented by Other!";
 	private static final String RENTED_BY_YOU = "Rented by You!";
 
-	public short getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(short id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -7,28 +7,30 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lockertracker.base.BaseExceptionWithLocalization;
 import com.lockertracker.model.exception.BaseRegistrationValidationException;
 import com.lockertracker.resources.PageAttributeConsts;
 import com.lockertracker.resources.ViewConsts;
-import com.lockertracker.service.MessageByLocaleService;
+import com.lockertracker.service.ExceptionHandlerService;
 import com.lockertracker.service.exception.locker.BaseLockerException;
 
 @ControllerAdvice
 public class ExceptionController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private MessageByLocaleService messageByLocaleService;
+	private ExceptionHandlerService exceptionHandlerService;
 
 	@Autowired
-	public void setMessageByLocaleService(MessageByLocaleService messageByLocaleService) {
-		this.messageByLocaleService = messageByLocaleService;
+	public void setExceptionHandlerService(ExceptionHandlerService exceptionHandlerService) {
+		this.exceptionHandlerService = exceptionHandlerService;
 	}
 
 	@ExceptionHandler(value = BaseLockerException.class)
 	public ModelAndView baseLockerHandler(BaseLockerException baseLockerException) {
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
-		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, getMessageFrom(baseLockerException));
+
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
+				exceptionHandlerService.getMessageFrom(baseLockerException));
+
 		return modelAndView;
 	}
 
@@ -36,9 +38,27 @@ public class ExceptionController {
 	public ModelAndView baseRegistrationValidationHandler(
 			BaseRegistrationValidationException baseRegistrationValidationException) {
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.REGISTRATION));
+
 		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
-				getMessageFrom(baseRegistrationValidationException));
+				exceptionHandlerService.getMessageFrom(baseRegistrationValidationException));
+
 		return modelAndView;
+	}
+
+	@ExceptionHandler(value = RuntimeException.class)
+	public ModelAndView runTimeExceptionHandler(RuntimeException exception) {
+		String throwedBaseClassName = exception.getCause().getClass().getSuperclass().getName();
+		logger.error("throwedBaseClassName: " + throwedBaseClassName);
+
+		Throwable throwedExceptionCause = exception.getCause();
+
+		if (throwedBaseClassName.equals(BaseLockerException.class.getName())) {
+			return baseLockerHandler((BaseLockerException) throwedExceptionCause);
+		} else if (throwedBaseClassName.equals(BaseRegistrationValidationException.class.getName())) {
+			return baseRegistrationValidationHandler((BaseRegistrationValidationException) throwedExceptionCause);
+		} else {
+			return anyRandomExceptionHandler(exception);
+		}
 	}
 
 	@ExceptionHandler(value = Exception.class)
@@ -49,12 +69,6 @@ public class ExceptionController {
 		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, exception.getMessage());
 
 		return modelAndView;
-	}
-
-	private String getMessageFrom(BaseExceptionWithLocalization exception) {
-		logger.error("BaseExceptionWithLocalization: " + exception.getMessage());
-		String exceptionMessageId = exception.getMessage();
-		return messageByLocaleService.getMessage(exceptionMessageId);
 	}
 
 }

@@ -1,10 +1,10 @@
 package com.lockertracker.service;
 
-import com.lockertracker.model.EmployeeModel;
+import com.lockertracker.model.EmployeeDBModel;
 
 public interface EmployeeService {
 
-	public EmployeeModel findByUsername(String username);
+	public EmployeeDBModel findByUsername(String username);
 
-	public EmployeeModel registerUser(EmployeeModel employeeModel);
+	public EmployeeDBModel registerUser(EmployeeDBModel employeeModel);
 }

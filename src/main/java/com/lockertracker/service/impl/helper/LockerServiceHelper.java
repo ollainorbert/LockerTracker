@@ -47,7 +47,7 @@ public class LockerServiceHelper {
 			throws LockerNotFoundException {
 
 		try {
-			short convertedId = Short.parseShort(id);
+			long convertedId = Long.parseLong(id);
 			LockerDBModel lockerModel = lockerRepository.findById(convertedId);
 			if (lockerModel == null) {
 				throw new LockerNotFoundException();

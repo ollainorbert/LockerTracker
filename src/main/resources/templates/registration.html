@@ -10,7 +10,7 @@
 
 		<p th:text="${param.resultMsg != null}? ${param.resultMsg[0]} : ''"/>
 
-		<form name="registration" th:action="@{/registrationReq}" th:object="${user}" method="post">
+		<form name="registration" th:action="@{/registrationRequest}" th:object="${user}" method="post">
 			<h2>Registration form</h2>
 			
 	 	    <input type="text" id="username" name="username" th:field="*{username}" placeholder="Username"

@@ -1,7 +1,8 @@
 create table Employees
 (
 	id bigint not null,
-	name varchar(20) not null,
+	username varchar(20) not null,
+	password varchar(20) not null,
 	createdAt TIMESTAMP not null,
 	primary key(id)
 );

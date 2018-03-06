@@ -5,7 +5,7 @@ public class RoutingConsts {
 	public static final String HOME = "/";
 	public static final String LOGIN = "/login";
 	public static final String REGISTRATION = "/registration";
-	public static final String REGISTRATION_REQ = "/registrationReq";
+	public static final String REGISTRATION_REQUEST = "/registrationRequest";
 
 	public static final String LOCKERS = "/lockers";
 

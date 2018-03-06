@@ -3,37 +3,25 @@ package com.lockertracker.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.lockertracker.model.exception.BaseRegistrationValidationException;
+
 @Entity
 @Table(name = "roles")
-public class RoleModel {
-
-	@Id
-	@GeneratedValue
-	private Long id;
+public class RoleDBModel extends BaseDBModel {
 
 	private String role;
 
 	@ManyToMany(mappedBy = "roles")
-	private Set<EmployeeModel> users;
+	private Set<EmployeeDBModel> users;
 
-	public RoleModel() {
+	public RoleDBModel() {
 	}
 
-	public RoleModel(String roleName) {
+	public RoleDBModel(String roleName) {
 		this.setRole(roleName);
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getRole() {
@@ -44,11 +32,16 @@ public class RoleModel {
 		this.role = role;
 	}
 
-	public Set<EmployeeModel> getUsers() {
+	public Set<EmployeeDBModel> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<EmployeeModel> users) {
+	public void setUsers(Set<EmployeeDBModel> users) {
 		this.users = users;
+	}
+
+	@Override
+	public void validate() throws BaseRegistrationValidationException {
+
 	}
 }

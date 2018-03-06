@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lockertracker.model.EmployeeModel;
+import com.lockertracker.model.EmployeeDBModel;
 import com.lockertracker.model.LockerDBModel;
 import com.lockertracker.model.LockerGUIModel;
 import com.lockertracker.repository.EmployeeRepository;
@@ -22,15 +22,15 @@ public class LockerServiceImpl implements LockerService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private LockerRepository lockerRepository;
-	private EmployeeRepository employeeRepository;
 	private LockerServiceHelper lockerServiceHelper;
+	private EmployeeRepository employeeRepository;
 
 	@Autowired
-	public LockerServiceImpl(LockerRepository lockerRepository, EmployeeRepository employeeRepository,
-			LockerServiceHelper lockerServiceHelper) {
+	public LockerServiceImpl(LockerRepository lockerRepository, LockerServiceHelper lockerServiceHelper,
+			EmployeeRepository employeeRepository) {
 		this.lockerRepository = lockerRepository;
-		this.employeeRepository = employeeRepository;
 		this.lockerServiceHelper = lockerServiceHelper;
+		this.employeeRepository = employeeRepository;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class LockerServiceImpl implements LockerService {
 
 		LockerDBModel lockerModel = lockerServiceHelper.setReservableLockerById(id, true, lockerRepository);
 
-		EmployeeModel employeeModel = employeeRepository.findByUsername(username);
+		EmployeeDBModel employeeModel = employeeRepository.findByUsername(username);
 		lockerModel.setRentedByEmployeeId(employeeModel.getId());
 
 		lockerRepository.save(lockerModel);
@@ -74,7 +74,7 @@ public class LockerServiceImpl implements LockerService {
 	public List<LockerGUIModel> getAllLockerWithUserBelongs(final String username) throws EmployeeNotFoundException {
 		logger.info("Logined (unique) username: " + username);
 
-		EmployeeModel employeeModel = employeeRepository.findByUsername(username);
+		EmployeeDBModel employeeModel = employeeRepository.findByUsername(username);
 		if (employeeModel == null) {
 			throw new EmployeeNotFoundException();
 		}

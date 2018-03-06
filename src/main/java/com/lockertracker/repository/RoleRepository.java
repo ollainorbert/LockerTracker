@@ -2,9 +2,9 @@ package com.lockertracker.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.lockertracker.model.RoleModel;
+import com.lockertracker.model.RoleDBModel;
 
-public interface RoleRepository extends JpaRepository<RoleModel, Short> {
+public interface RoleRepository extends JpaRepository<RoleDBModel, Short> {
 
-	public RoleModel findByRole(String roleName);
+	public RoleDBModel findByRole(String roleName);
 }
