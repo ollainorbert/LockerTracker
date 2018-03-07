@@ -12,5 +12,6 @@ public class ExceptionMessageIdConsts {
 
 	public static class Registration {
 		public static final String USERNAME_ALREADY_TAKEN = "exception.registration.usernameAlreadyTaken";
+		public static final String PASSWORDS_DOESNT_MATCH = "exception.registration.passwordsDoenstMatch";
 	}
 }

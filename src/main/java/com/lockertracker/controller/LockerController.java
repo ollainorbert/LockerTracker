@@ -20,6 +20,10 @@ import com.lockertracker.service.LockerService;
 import com.lockertracker.service.MessageByLocaleService;
 import com.lockertracker.service.exception.locker.BaseLockerException;
 
+//#{__${attributumneve}__}
+//#{__${attributumneve}__}
+//#{__${attributumneve}__}
+//#{__${attributumneve}__}
 @Controller
 public class LockerController {
 	private LockerService lockerService;
@@ -47,9 +51,11 @@ public class LockerController {
 		lockerService.rentLocker(id, principal.getName());
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
-		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
-				messageByLocaleService.getMessage(PageMessageIdConsts.RENT_SUCESS));
-		// #{__${attributumneve}__}
+		// modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
+		// messageByLocaleService.getMessage(PageMessageIdConsts.RENT_SUCESS));
+
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, PageMessageIdConsts.RENT_SUCESS);
+
 		return modelAndView;
 	}
 

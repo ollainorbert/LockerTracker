@@ -14,12 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.lockertracker.model.exception.BaseRegistrationValidationException;
-import com.lockertracker.model.exception.PasswordFormatException;
-import com.lockertracker.model.exception.UserNameFormatException;
-
 @Entity
 @Table(name = "Employees")
 public class EmployeeDBModel extends BaseDBModel {
@@ -39,9 +33,9 @@ public class EmployeeDBModel extends BaseDBModel {
 			@JoinColumn(name = "role_id") })
 	private Set<RoleDBModel> roles;
 
-	public static final int MIN_NAME_LENGTH = 20;
+	public static final int MIN_NAME_LENGTH = 1;
 	public static final int MAX_NAME_LENGTH = 20;
-	public static final int MIN_PASSWORD_LENGTH = 20;
+	public static final int MIN_PASSWORD_LENGTH = 1;
 	public static final int MAX_PASSWORD_LENGTH = 20;
 
 	public String getUsername() {
@@ -90,18 +84,6 @@ public class EmployeeDBModel extends BaseDBModel {
 		}
 
 		this.roles.add(roleModel);
-	}
-
-	@Override
-	public void validate() throws BaseRegistrationValidationException {
-		if ((StringUtils.isBlank(this.getUsername()) || this.getUsername().length() > MAX_NAME_LENGTH)) {
-			throw new UserNameFormatException();
-		}
-
-		if (StringUtils.isBlank(this.getPassword()) || !this.getPassword().equals(this.getPasswordAgain())
-				|| this.getPassword().length() > MAX_PASSWORD_LENGTH) {
-			throw new PasswordFormatException();
-		}
 	}
 
 }

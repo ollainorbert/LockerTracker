@@ -3,9 +3,6 @@ package com.lockertracker.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.lockertracker.model.EmployeeDBModel;
@@ -13,12 +10,12 @@ import com.lockertracker.model.RoleDBModel;
 import com.lockertracker.repository.EmployeeRepository;
 import com.lockertracker.repository.RoleRepository;
 import com.lockertracker.resources.RoleConsts;
-import com.lockertracker.security.UserDetailsImpl;
 import com.lockertracker.service.EmployeeService;
+import com.lockertracker.service.exception.registration.PasswordsDoesntMatchException;
 import com.lockertracker.service.exception.registration.UsernameAlreadyExistException;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService, UserDetailsService {
+public class EmployeeServiceImpl implements EmployeeService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private EmployeeRepository employeeRepo;
@@ -31,13 +28,12 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		EmployeeDBModel employeeModel = employeeRepo.findByUsername(username);
-		if (employeeModel == null) {
-			throw new UsernameNotFoundException(username);
+	public void checkTheTwoPasswordThatMustMatch(EmployeeDBModel employeeDBModel) throws PasswordsDoesntMatchException {
+		String password1 = employeeDBModel.getPassword();
+		String password2 = employeeDBModel.getPasswordAgain();
+		if (!password1.equals(password2)) {
+			throw new PasswordsDoesntMatchException();
 		}
-
-		return new UserDetailsImpl(employeeModel);
 	}
 
 	@Override

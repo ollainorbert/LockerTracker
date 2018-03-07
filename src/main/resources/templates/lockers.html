@@ -12,7 +12,8 @@
 
 	hello lockers
 	<br/>
-	<p th:text="${param.resultMsg != null}? ${param.resultMsg[0]} : ''">Error with the renting!</p>
+	<!--  <p th:text="${param.resultMsg != null}? ${param.resultMsg[0]} : ''">Error with the renting!</p> -->
+	<p th:text="${param.resultMsg != null}? ${__#{param.resultMsg[0]}__} : ''">Error with the renting!</p>
 	<br/><br/>
 	
 	<ul>

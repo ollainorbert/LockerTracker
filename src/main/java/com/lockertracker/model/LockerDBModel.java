@@ -3,8 +3,6 @@ package com.lockertracker.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.lockertracker.model.exception.BaseRegistrationValidationException;
-
 @Entity
 @Table(name = "Lockers")
 public class LockerDBModel extends BaseDBModel {
@@ -27,8 +25,4 @@ public class LockerDBModel extends BaseDBModel {
 		this.rentedByEmployeeId = rentedByEmployeeId;
 	}
 
-	@Override
-	public void validate() throws BaseRegistrationValidationException {
-
-	}
 }

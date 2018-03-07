@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.lockertracker.model.exception.BaseRegistrationValidationException;
-
 @Entity
 @Table(name = "roles")
 public class RoleDBModel extends BaseDBModel {
@@ -40,8 +38,4 @@ public class RoleDBModel extends BaseDBModel {
 		this.users = users;
 	}
 
-	@Override
-	public void validate() throws BaseRegistrationValidationException {
-
-	}
 }

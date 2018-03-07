@@ -13,8 +13,6 @@ import com.lockertracker.model.exception.BaseRegistrationValidationException;
 @MappedSuperclass
 public abstract class BaseDBModel {
 
-	public abstract void validate() throws BaseRegistrationValidationException;
-
 	@GeneratedValue
 	@Id
 	private long id;
@@ -39,9 +37,7 @@ public abstract class BaseDBModel {
 	}
 
 	@PrePersist
-	private void beforeInsert() throws BaseRegistrationValidationException {
+	private void prePersist() throws BaseRegistrationValidationException {
 		this.setCreatedAt(new Date());
-
-		this.validate();
 	}
 }
