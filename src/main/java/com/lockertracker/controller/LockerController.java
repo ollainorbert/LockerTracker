@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,13 +49,13 @@ public class LockerController {
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
 		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
 				messageByLocaleService.getMessage(PageMessageIdConsts.RENT_SUCESS));
-
+		// #{__${attributumneve}__}
 		return modelAndView;
 	}
 
 	@RequestMapping(value = RoutingConsts.RELEASE_LOCKER, method = RequestMethod.POST)
 	public ModelAndView releaseLocker(@RequestParam(value = PageAttributeConsts.Locker.RENT_PARAM_ID) final String id,
-			Principal principal) throws BaseLockerException {
+			Principal principal, Model model) throws BaseLockerException {
 		lockerService.releaseLockerById(id);
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));

@@ -31,13 +31,8 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 	}
 
 	@Override
-	public EmployeeDBModel findByUsername(String username) {
-		return employeeRepo.findByUsername(username);
-	}
-
-	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		EmployeeDBModel employeeModel = this.findByUsername(username);
+		EmployeeDBModel employeeModel = employeeRepo.findByUsername(username);
 		if (employeeModel == null) {
 			throw new UsernameNotFoundException(username);
 		}
@@ -47,9 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 
 	@Override
 	public EmployeeDBModel registerUser(EmployeeDBModel employeeModel) {
-		logger.info("New employee!");
-		logger.debug(employeeModel.getUsername());
-		logger.debug(employeeModel.getPassword());
+		logger.info("New employee! {}, password: xxxx", employeeModel.getUsername());
 
 		RoleDBModel roleModel = roleRepo.findByRole(RoleConsts.USER);
 		if (roleModel != null) {

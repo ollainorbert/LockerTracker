@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,9 +24,11 @@ import com.lockertracker.model.exception.UserNameFormatException;
 @Table(name = "Employees")
 public class EmployeeDBModel extends BaseDBModel {
 	@Column(unique = true, nullable = false, length = MAX_NAME_LENGTH)
+	@Size(min = MIN_NAME_LENGTH, max = MAX_NAME_LENGTH)
 	private String username;
 
 	@Column(nullable = false, length = MAX_PASSWORD_LENGTH)
+	@Size(min = MIN_PASSWORD_LENGTH, max = MAX_PASSWORD_LENGTH)
 	private String password;
 
 	@Transient
@@ -36,7 +39,9 @@ public class EmployeeDBModel extends BaseDBModel {
 			@JoinColumn(name = "role_id") })
 	private Set<RoleDBModel> roles;
 
+	public static final int MIN_NAME_LENGTH = 20;
 	public static final int MAX_NAME_LENGTH = 20;
+	public static final int MIN_PASSWORD_LENGTH = 20;
 	public static final int MAX_PASSWORD_LENGTH = 20;
 
 	public String getUsername() {
@@ -93,10 +98,8 @@ public class EmployeeDBModel extends BaseDBModel {
 			throw new UserNameFormatException();
 		}
 
-		if (
-				StringUtils.isBlank(this.getPassword()) ||			
-				!this.getPassword().equals(this.getPasswordAgain()) ||
-				this.getPassword().length() > MAX_PASSWORD_LENGTH) {
+		if (StringUtils.isBlank(this.getPassword()) || !this.getPassword().equals(this.getPasswordAgain())
+				|| this.getPassword().length() > MAX_PASSWORD_LENGTH) {
 			throw new PasswordFormatException();
 		}
 	}

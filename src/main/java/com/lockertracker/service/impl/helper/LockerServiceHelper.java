@@ -1,6 +1,6 @@
 package com.lockertracker.service.impl.helper;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,15 +19,13 @@ import com.lockertracker.service.exception.locker.LockerNotFoundException;
 
 @Component
 public class LockerServiceHelper {
-
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ConversionService conversionService;
 
 	@Autowired
 	public void setConversionService(ConversionService conversionService) {
 		this.conversionService = conversionService;
 	}
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public LockerDBModel setReservableLockerById(final String id, final boolean isRenting,
 			final LockerRepository lockerRepository) throws BaseLockerException {
@@ -82,7 +80,7 @@ public class LockerServiceHelper {
 	}
 
 	public List<LockerGUIModel> convertDBtoGUI(final List<LockerDBModel> lockersFromDB, final long loginedUserID) {
-		List<LockerGUIModel> lockersForGUI = new LinkedList<LockerGUIModel>();
+		List<LockerGUIModel> lockersForGUI = new ArrayList<LockerGUIModel>();
 
 		for (LockerDBModel lockerDBModel : lockersFromDB) {
 			LockerGUIModel lockerGUIModel = conversionService.convert(lockerDBModel, LockerGUIModel.class);

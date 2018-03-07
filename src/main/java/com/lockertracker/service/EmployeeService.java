@@ -5,8 +5,6 @@ import com.lockertracker.service.exception.registration.UsernameAlreadyExistExce
 
 public interface EmployeeService {
 
-	public EmployeeDBModel findByUsername(String username);
-
 	public void checkUsernameDuplicateInDbBy(String username) throws UsernameAlreadyExistException;
 
 	public EmployeeDBModel registerUser(EmployeeDBModel employeeModel);
