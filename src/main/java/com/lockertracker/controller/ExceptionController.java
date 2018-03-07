@@ -12,6 +12,7 @@ import com.lockertracker.resources.PageAttributeConsts;
 import com.lockertracker.resources.ViewConsts;
 import com.lockertracker.service.ExceptionHandlerService;
 import com.lockertracker.service.exception.locker.BaseLockerException;
+import com.lockertracker.service.exception.registration.BaseRegistrationException;
 
 @ControllerAdvice
 public class ExceptionController {
@@ -41,6 +42,16 @@ public class ExceptionController {
 
 		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
 				exceptionHandlerService.getMessageFrom(baseRegistrationValidationException));
+
+		return modelAndView;
+	}
+
+	@ExceptionHandler(value = BaseRegistrationException.class)
+	public ModelAndView baseRegistrationHandler(BaseRegistrationException baseRegistrationException) {
+		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.REGISTRATION));
+
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
+				exceptionHandlerService.getMessageFrom(baseRegistrationException));
 
 		return modelAndView;
 	}

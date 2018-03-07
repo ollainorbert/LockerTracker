@@ -13,11 +13,14 @@
 		<form name="registration" th:action="@{/registrationRequest}" th:object="${user}" method="post">
 			<h2>Registration form</h2>
 			
-	 	    <input type="text" id="username" name="username" th:field="*{username}" placeholder="Username"
-	 	   		required="true" maxlength="20" /> 
+	 	    <input type="text" th:field="*{username}"
+	 	    	placeholder="Username" required="true" maxlength="20" /> 
 	 	    <br/>
-		    <input type="password" id="password" name="password" th:field="*{password}" placeholder="Password"
-		    	required="true" maxlength="20" />
+		    <input type="password" th:field="*{password}"
+		    	placeholder="Password" required="true" maxlength="20" />
+			<br/>
+			<input type="password" th:field="*{passwordAgain}"
+				placeholder="Password Again" required="true" maxlength="20" />
 			<br/>
 			<button type="submit">Sign up!</button>
 		</form>

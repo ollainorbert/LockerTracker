@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,6 +27,9 @@ public class EmployeeDBModel extends BaseDBModel {
 
 	@Column(nullable = false, length = MAX_PASSWORD_LENGTH)
 	private String password;
+
+	@Transient
+	private String passwordAgain;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "Users_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
@@ -49,6 +53,14 @@ public class EmployeeDBModel extends BaseDBModel {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordAgain() {
+		return passwordAgain;
+	}
+
+	public void setPasswordAgain(String passwordAgain) {
+		this.passwordAgain = passwordAgain;
 	}
 
 	public Set<RoleDBModel> getRoles() {
@@ -81,7 +93,10 @@ public class EmployeeDBModel extends BaseDBModel {
 			throw new UserNameFormatException();
 		}
 
-		if ((StringUtils.isBlank(this.getPassword()) || this.getPassword().length() > MAX_PASSWORD_LENGTH)) {
+		if (
+				StringUtils.isBlank(this.getPassword()) ||			
+				!this.getPassword().equals(this.getPasswordAgain()) ||
+				this.getPassword().length() > MAX_PASSWORD_LENGTH) {
 			throw new PasswordFormatException();
 		}
 	}

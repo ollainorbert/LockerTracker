@@ -15,6 +15,7 @@ import com.lockertracker.repository.RoleRepository;
 import com.lockertracker.resources.RoleConsts;
 import com.lockertracker.security.UserDetailsImpl;
 import com.lockertracker.service.EmployeeService;
+import com.lockertracker.service.exception.registration.UsernameAlreadyExistException;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService, UserDetailsService {
@@ -58,6 +59,15 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 		}
 
 		return employeeRepo.save(employeeModel);
+	}
+
+	@Override
+	public void checkUsernameDuplicateInDbBy(String username) throws UsernameAlreadyExistException {
+		logger.info("input username: " + username);
+		EmployeeDBModel employeeDBModel = employeeRepo.findByUsername(username);
+		if (employeeDBModel != null) {
+			throw new UsernameAlreadyExistException();
+		}
 	}
 
 }

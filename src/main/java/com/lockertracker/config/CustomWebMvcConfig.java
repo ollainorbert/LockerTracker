@@ -31,8 +31,8 @@ public class CustomWebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		super.addViewControllers(registry);
-		registry.addViewController(RoutingConsts.HOME).setViewName(ViewConsts.HOME);
-		registry.addViewController(RoutingConsts.LOGIN).setViewName(ViewConsts.LOGIN);
+		registry.addViewController(RoutingConsts.HOME).setViewName(ViewConsts.HOME_PATH);
+		registry.addViewController(RoutingConsts.LOGIN).setViewName(ViewConsts.LOGIN_PATH);
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
 

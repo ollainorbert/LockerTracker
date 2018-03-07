@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,12 +31,13 @@ public class LockerController {
 	}
 
 	@RequestMapping(RoutingConsts.LOCKERS)
-	public String lockers(Model model, Principal principal) throws BaseLockerException {
+	public ModelAndView lockers(Principal principal) throws BaseLockerException {
 		List<LockerGUIModel> lockersForGUI = lockerService.getAllLockerWithUserBelongs(principal.getName());
 
-		model.addAttribute(PageAttributeConsts.Locker.LOCKERLIST, lockersForGUI);
+		ModelAndView modelAndView = new ModelAndView(ViewConsts.LOCKERS);
+		modelAndView.addObject(PageAttributeConsts.Locker.LOCKERLIST, lockersForGUI);
 
-		return ViewConsts.LOCKERS;
+		return modelAndView;
 	}
 
 	@RequestMapping(value = RoutingConsts.RENT_LOCKER, method = RequestMethod.POST)
@@ -58,15 +58,16 @@ public class LockerController {
 		lockerService.releaseLockerById(id);
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
-		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, PageMessageIdConsts.RELEASE_SUCESS);
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
+				messageByLocaleService.getMessage(PageMessageIdConsts.RELEASE_SUCESS));
 
 		return modelAndView;
 	}
 
 	@RequestMapping(RoutingConsts.RELEASE_ALL_LOCKER)
-	public String releaseAllLocker() throws BaseLockerException {
+	public ModelAndView releaseAllLocker() throws BaseLockerException {
 		lockerService.releaseAllLocker();
-		return ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS);
+		return new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
 	}
 
 }
