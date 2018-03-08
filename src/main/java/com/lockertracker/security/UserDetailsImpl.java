@@ -8,22 +8,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.lockertracker.model.EmployeeDBModel;
 import com.lockertracker.model.RoleDBModel;
+import com.lockertracker.model.UserDBModel;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = -8315738959347170674L;
 
-	private EmployeeDBModel employeeModel;
+	private UserDBModel userDBModel;
 
-	public UserDetailsImpl(EmployeeDBModel employeeModel) {
-		this.employeeModel = employeeModel;
+	public UserDetailsImpl(UserDBModel userDBModel) {
+		this.userDBModel = userDBModel;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		Set<RoleDBModel> roles = employeeModel.getRoles();
+		Set<RoleDBModel> roles = userDBModel.getRoles();
 		for (RoleDBModel role : roles) {
 			authorities.add(new SimpleGrantedAuthority(role.getRole()));
 		}
@@ -32,12 +32,12 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return employeeModel.getPassword();
+		return userDBModel.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return employeeModel.getUsername();
+		return userDBModel.getUsername();
 	}
 
 	@Override

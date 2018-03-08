@@ -14,7 +14,7 @@ public class LockerModelConverter implements Converter<LockerDBModel, LockerGUIM
 
 		lockerGUIModel.setId(arg0.getId());
 		lockerGUIModel.setRented(arg0.isRented());
-		lockerGUIModel.setRentedByEmployeeId(arg0.getRentedByEmployeeId());
+		lockerGUIModel.setRentedByUserId(arg0.getRentedByUserId());
 
 		return lockerGUIModel;
 	}

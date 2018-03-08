@@ -31,14 +31,14 @@ public class LockerModelConverterTest {
 		LockerDBModel lockerDBModel = new LockerDBModel();
 		lockerDBModel.setId(lockerId);
 		lockerDBModel.setRented(isRented);
-		lockerDBModel.setRentedByEmployeeId(rentedByEmployeeId);
+		lockerDBModel.setRentedByUserId(rentedByEmployeeId);
 
 		LockerGUIModel lockerGUIModel = lockerModelConverter.convert(lockerDBModel);
 
 		assertNotNull(lockerGUIModel);
 		assertEquals(lockerDBModel.getId(), lockerGUIModel.getId());
 		assertEquals(lockerDBModel.isRented(), lockerGUIModel.isRented());
-		assertEquals(lockerDBModel.getRentedByEmployeeId(), lockerGUIModel.getRentedByEmployeeId());
+		assertEquals(lockerDBModel.getRentedByUserId(), lockerGUIModel.getRentedByUserId());
 	}
 
 }

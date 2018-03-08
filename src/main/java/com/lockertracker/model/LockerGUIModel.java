@@ -10,7 +10,7 @@ public class LockerGUIModel {
 	private boolean rentedByLoginedUser;
 	private RentedByEnum rentedByEnum;
 	private String rentedByString;
-	private long rentedByEmployeeId;
+	private long rentedByUserId;
 
 	private static final String NOT_RENTED = "Not rented!";
 	private static final String RENTED_BY_OTHER = "Rented by Other!";
@@ -73,19 +73,19 @@ public class LockerGUIModel {
 		this.rentedByString = rentedByString;
 	}
 
-	public long getRentedByEmployeeId() {
-		return rentedByEmployeeId;
+	public long getRentedByUserId() {
+		return rentedByUserId;
 	}
 
-	public void setRentedByEmployeeId(long rentedByEmployeeId) {
-		this.rentedByEmployeeId = rentedByEmployeeId;
+	public void setRentedByUserId(long rentedByEmployeeId) {
+		this.rentedByUserId = rentedByEmployeeId;
 	}
 
 	public void setRentingAttributesBy(long loginedUserID) {
 		if (!this.isRented()) {
 			this.setRentedByEnum(RentedByEnum.NOT_RENTED);
 		} else {
-			boolean isRentedByThisUser = (this.getRentedByEmployeeId() == loginedUserID) ? true : false;
+			boolean isRentedByThisUser = (this.getRentedByUserId() == loginedUserID) ? true : false;
 			this.setRentedByLoginedUser(isRentedByThisUser);
 
 			RentedByEnum rentedBy = this.isRentedByLoginedUser() ? RentedByEnum.RENTED_BY_YOU

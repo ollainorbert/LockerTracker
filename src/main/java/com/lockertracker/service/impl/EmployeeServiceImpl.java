@@ -5,57 +5,57 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lockertracker.model.EmployeeDBModel;
 import com.lockertracker.model.RoleDBModel;
-import com.lockertracker.repository.EmployeeRepository;
+import com.lockertracker.model.UserDBModel;
 import com.lockertracker.repository.RoleRepository;
+import com.lockertracker.repository.UserRepository;
 import com.lockertracker.resources.RoleConsts;
-import com.lockertracker.service.EmployeeService;
+import com.lockertracker.service.UserService;
 import com.lockertracker.service.exception.registration.PasswordsDoesntMatchException;
 import com.lockertracker.service.exception.registration.UsernameAlreadyExistException;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl implements UserService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private EmployeeRepository employeeRepo;
-	private RoleRepository roleRepo;
+	private UserRepository userRepository;
+	private RoleRepository roleRepository;
 
 	@Autowired
-	public EmployeeServiceImpl(EmployeeRepository employeeRepo, RoleRepository roleRepo) {
-		this.employeeRepo = employeeRepo;
-		this.roleRepo = roleRepo;
+	public EmployeeServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
 	}
 
 	@Override
-	public void checkTheTwoPasswordThatMustMatch(EmployeeDBModel employeeDBModel) throws PasswordsDoesntMatchException {
-		String password1 = employeeDBModel.getPassword();
-		String password2 = employeeDBModel.getPasswordAgain();
+	public void checkTheTwoPasswordThatMustMatch(UserDBModel userDBModel) throws PasswordsDoesntMatchException {
+		String password1 = userDBModel.getPassword();
+		String password2 = userDBModel.getPasswordAgain();
 		if (!password1.equals(password2)) {
 			throw new PasswordsDoesntMatchException();
 		}
 	}
 
 	@Override
-	public EmployeeDBModel registerUser(EmployeeDBModel employeeModel) {
-		logger.info("New employee! {}, password: xxxx", employeeModel.getUsername());
+	public UserDBModel registerUser(UserDBModel userDBModel) {
+		logger.info("New employee! {}, password: xxxx", userDBModel.getUsername());
 
-		RoleDBModel roleModel = roleRepo.findByRole(RoleConsts.USER);
+		RoleDBModel roleModel = roleRepository.findByRole(RoleConsts.USER);
 		if (roleModel != null) {
-			employeeModel.addRoles(roleModel);
+			userDBModel.addRoles(roleModel);
 		} else {
-			employeeModel.addRoles(RoleConsts.USER);
+			userDBModel.addRoles(RoleConsts.USER);
 		}
 
-		return employeeRepo.save(employeeModel);
+		return userRepository.save(userDBModel);
 	}
 
 	@Override
 	public void checkUsernameDuplicateInDbBy(String username) throws UsernameAlreadyExistException {
 		logger.info("input username: " + username);
 
-		EmployeeDBModel employeeDBModel = employeeRepo.findByUsername(username);
-		if (employeeDBModel != null) {
+		UserDBModel userDBModel = userRepository.findByUsername(username);
+		if (userDBModel != null) {
 			throw new UsernameAlreadyExistException();
 		}
 	}

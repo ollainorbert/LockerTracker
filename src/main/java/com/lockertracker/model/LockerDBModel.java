@@ -7,7 +7,7 @@ import javax.persistence.Table;
 @Table(name = "Lockers")
 public class LockerDBModel extends BaseDBModel {
 	private boolean rented;
-	private long rentedByEmployeeId;
+	private long rentedByUserId;
 
 	public boolean isRented() {
 		return rented;
@@ -17,12 +17,12 @@ public class LockerDBModel extends BaseDBModel {
 		this.rented = rented;
 	}
 
-	public long getRentedByEmployeeId() {
-		return rentedByEmployeeId;
+	public long getRentedByUserId() {
+		return rentedByUserId;
 	}
 
-	public void setRentedByEmployeeId(long rentedByEmployeeId) {
-		this.rentedByEmployeeId = rentedByEmployeeId;
+	public void setRentedByUserId(long rentedByUserId) {
+		this.rentedByUserId = rentedByUserId;
 	}
 
 }

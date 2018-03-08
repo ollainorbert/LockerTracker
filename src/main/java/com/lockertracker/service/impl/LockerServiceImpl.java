@@ -7,14 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lockertracker.model.EmployeeDBModel;
 import com.lockertracker.model.LockerDBModel;
 import com.lockertracker.model.LockerGUIModel;
-import com.lockertracker.repository.EmployeeRepository;
+import com.lockertracker.model.UserDBModel;
 import com.lockertracker.repository.LockerRepository;
+import com.lockertracker.repository.UserRepository;
 import com.lockertracker.service.LockerService;
 import com.lockertracker.service.exception.locker.BaseLockerException;
-import com.lockertracker.service.exception.locker.EmployeeNotFoundException;
+import com.lockertracker.service.exception.locker.UserNotFoundException;
 import com.lockertracker.service.impl.helper.LockerServiceHelper;
 
 @Service
@@ -23,14 +23,14 @@ public class LockerServiceImpl implements LockerService {
 
 	private LockerRepository lockerRepository;
 	private LockerServiceHelper lockerServiceHelper;
-	private EmployeeRepository employeeRepository;
+	private UserRepository userRepository;
 
 	@Autowired
 	public LockerServiceImpl(LockerRepository lockerRepository, LockerServiceHelper lockerServiceHelper,
-			EmployeeRepository employeeRepository) {
+			UserRepository userRepository) {
 		this.lockerRepository = lockerRepository;
 		this.lockerServiceHelper = lockerServiceHelper;
-		this.employeeRepository = employeeRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -55,8 +55,8 @@ public class LockerServiceImpl implements LockerService {
 
 		LockerDBModel lockerModel = lockerServiceHelper.setReservableLockerById(id, true, lockerRepository);
 
-		EmployeeDBModel employeeModel = employeeRepository.findByUsername(username);
-		lockerModel.setRentedByEmployeeId(employeeModel.getId());
+		UserDBModel userDBModel = userRepository.findByUsername(username);
+		lockerModel.setRentedByUserId(userDBModel.getId());
 
 		lockerRepository.save(lockerModel);
 		logger.info("Locker rent success!");
@@ -71,18 +71,18 @@ public class LockerServiceImpl implements LockerService {
 	}
 
 	@Override
-	public List<LockerGUIModel> getAllLockerWithUserBelongs(final String username) throws EmployeeNotFoundException {
+	public List<LockerGUIModel> getAllLockerWithUserBelongs(final String username) throws UserNotFoundException {
 		logger.info("Logined (unique) username: " + username);
 
-		EmployeeDBModel employeeModel = employeeRepository.findByUsername(username);
-		if (employeeModel == null) {
-			throw new EmployeeNotFoundException();
+		UserDBModel userDBModel = userRepository.findByUsername(username);
+		if (userDBModel == null) {
+			throw new UserNotFoundException();
 		}
 
 		List<LockerDBModel> lockersFromDB = lockerRepository.findAll();
-		long employeeId = employeeModel.getId();
+		long userId = userDBModel.getId();
 
-		return lockerServiceHelper.convertDBtoGUI(lockersFromDB, employeeId);
+		return lockerServiceHelper.convertDBtoGUI(lockersFromDB, userId);
 	}
 
 }

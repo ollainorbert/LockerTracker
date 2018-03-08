@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "Lockerrentals", uniqueConstraints = { @UniqueConstraint(columnNames = { "lockerId", "employeeId" }) })
+@Table(name = "Lockerrentals", uniqueConstraints = { @UniqueConstraint(columnNames = { "lockerId", "userId" }) })
 public class LockerRentalModel {
 
 	@GeneratedValue
@@ -21,7 +21,7 @@ public class LockerRentalModel {
 	private short lockerId;
 
 	@Column(nullable = false)
-	private long employeeId;
+	private long userId;
 
 	@Column(nullable = false)
 	private Date createdAt;
@@ -42,12 +42,12 @@ public class LockerRentalModel {
 		this.lockerId = lockerId;
 	}
 
-	public long getEmployeeId() {
-		return employeeId;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setEmployeeId(long employeeId) {
-		this.employeeId = employeeId;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public Date getCreatedAt() {

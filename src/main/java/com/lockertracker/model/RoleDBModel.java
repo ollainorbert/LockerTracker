@@ -13,7 +13,7 @@ public class RoleDBModel extends BaseDBModel {
 	private String role;
 
 	@ManyToMany(mappedBy = "roles")
-	private Set<EmployeeDBModel> users;
+	private Set<UserDBModel> users;
 
 	public RoleDBModel() {
 	}
@@ -30,11 +30,11 @@ public class RoleDBModel extends BaseDBModel {
 		this.role = role;
 	}
 
-	public Set<EmployeeDBModel> getUsers() {
+	public Set<UserDBModel> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<EmployeeDBModel> users) {
+	public void setUsers(Set<UserDBModel> users) {
 		this.users = users;
 	}
 

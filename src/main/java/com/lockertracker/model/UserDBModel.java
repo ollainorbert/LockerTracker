@@ -15,8 +15,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "Employees")
-public class EmployeeDBModel extends BaseDBModel {
+@Table(name = "Users")
+public class UserDBModel extends BaseDBModel {
 	@Column(unique = true, nullable = false, length = MAX_NAME_LENGTH)
 	@Size(min = MIN_NAME_LENGTH, max = MAX_NAME_LENGTH)
 	private String username;

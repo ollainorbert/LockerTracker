@@ -32,13 +32,13 @@ public class LockerServiceHelperTest {
 		LockerDBModel lockerDBModel1 = new LockerDBModel();
 		lockerDBModel1.setId(0);
 		lockerDBModel1.setRented(true);
-		lockerDBModel1.setRentedByEmployeeId(0);
+		lockerDBModel1.setRentedByUserId(0);
 		lockerDBModels.add(lockerDBModel1);
 
 		LockerDBModel lockerDBModel2 = new LockerDBModel();
 		lockerDBModel2.setId(1);
 		lockerDBModel2.setRented(false);
-		lockerDBModel2.setRentedByEmployeeId(1);
+		lockerDBModel2.setRentedByUserId(1);
 		lockerDBModels.add(lockerDBModel2);
 
 		List<LockerGUIModel> lockersForGUI = lockerServiceHelper.convertDBtoGUI(lockerDBModels, loginedUserID);
@@ -47,8 +47,8 @@ public class LockerServiceHelperTest {
 		assertEquals(lockerDBModels.size(), lockersForGUI.size());
 
 		for (int i = 0; i < lockerDBModels.size(); ++i) {
-			long rentedByEmployeeId = lockersForGUI.get(i).getRentedByEmployeeId();
-			if (lockerDBModels.get(i).getRentedByEmployeeId() == loginedUserID) {
+			long rentedByEmployeeId = lockersForGUI.get(i).getRentedByUserId();
+			if (lockerDBModels.get(i).getRentedByUserId() == loginedUserID) {
 				assertEquals(loginedUserID, rentedByEmployeeId);
 			} else {
 				assertNotEquals(loginedUserID, rentedByEmployeeId);
