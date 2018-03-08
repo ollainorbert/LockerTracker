@@ -17,22 +17,15 @@ import com.lockertracker.resources.PageMessageIdConsts;
 import com.lockertracker.resources.RoutingConsts;
 import com.lockertracker.resources.ViewConsts;
 import com.lockertracker.service.LockerService;
-import com.lockertracker.service.MessageByLocaleService;
 import com.lockertracker.service.exception.locker.BaseLockerException;
 
-//#{__${attributumneve}__}
-//#{__${attributumneve}__}
-//#{__${attributumneve}__}
-//#{__${attributumneve}__}
 @Controller
 public class LockerController {
 	private LockerService lockerService;
-	private MessageByLocaleService messageByLocaleService;
 
 	@Autowired
-	public LockerController(LockerService lockerService, MessageByLocaleService messageByLocaleService) {
+	public void setLockerService(LockerService lockerService) {
 		this.lockerService = lockerService;
-		this.messageByLocaleService = messageByLocaleService;
 	}
 
 	@RequestMapping(RoutingConsts.LOCKERS)
@@ -51,10 +44,7 @@ public class LockerController {
 		lockerService.rentLocker(id, principal.getName());
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
-		// modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
-		// messageByLocaleService.getMessage(PageMessageIdConsts.RENT_SUCESS));
-
-		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, PageMessageIdConsts.RENT_SUCESS);
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, PageMessageIdConsts.RENT_SUCCESS);
 
 		return modelAndView;
 	}
@@ -65,8 +55,7 @@ public class LockerController {
 		lockerService.releaseLockerById(id);
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
-		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG,
-				messageByLocaleService.getMessage(PageMessageIdConsts.RELEASE_SUCESS));
+		modelAndView.addObject(PageAttributeConsts.Locker.RESULT_MSG, PageMessageIdConsts.RELEASE_SUCCESS);
 
 		return modelAndView;
 	}

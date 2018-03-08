@@ -53,6 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public void checkUsernameDuplicateInDbBy(String username) throws UsernameAlreadyExistException {
 		logger.info("input username: " + username);
+
 		EmployeeDBModel employeeDBModel = employeeRepo.findByUsername(username);
 		if (employeeDBModel != null) {
 			throw new UsernameAlreadyExistException();

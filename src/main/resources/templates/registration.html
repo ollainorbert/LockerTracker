@@ -8,7 +8,8 @@
 
 	<div layout:fragment="loginContent">
 
-		<p th:text="${param.resultMsg != null}? ${param.resultMsg[0]} : ''"/>
+		<!-- <p th:text="${param.resultMsg != null}? ${param.resultMsg[0]} : ''"/>  -->
+		<p th:text="${param.resultMsg != null}? ${#messages.msg(param.resultMsg[0])} : ''"/>
 
 		<form name="registration" th:action="@{/registrationRequest}" th:object="${user}" method="post">
 			<h2>Registration form</h2>

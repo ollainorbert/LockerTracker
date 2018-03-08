@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 
-import com.lockertracker.model.exception.BaseRegistrationValidationException;
-
 @MappedSuperclass
 public abstract class BaseDBModel {
 
@@ -37,7 +35,7 @@ public abstract class BaseDBModel {
 	}
 
 	@PrePersist
-	private void prePersist() throws BaseRegistrationValidationException {
+	private void prePersist() {
 		this.setCreatedAt(new Date());
 	}
 }
