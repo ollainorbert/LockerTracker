@@ -18,20 +18,20 @@ public class LockerModelConverterTest {
 	private LockerModelConverter lockerModelConverter;
 
 	@Before
-	public void setup() throws Exception {
+	public void setup() {
 		lockerModelConverter = new LockerModelConverter();
 	}
 
 	@Test
-	public void testConvert() throws Exception {
+	public void testConvert() {
 		long lockerId = 0;
 		boolean isRented = true;
-		long rentedByEmployeeId = 0;
+		long rentedByUserId = 0;
 
 		LockerDBModel lockerDBModel = new LockerDBModel();
 		lockerDBModel.setId(lockerId);
 		lockerDBModel.setRented(isRented);
-		lockerDBModel.setRentedByUserId(rentedByEmployeeId);
+		lockerDBModel.setRentedByUserId(rentedByUserId);
 
 		LockerGUIModel lockerGUIModel = lockerModelConverter.convert(lockerDBModel);
 

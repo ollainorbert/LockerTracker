@@ -15,14 +15,14 @@ import com.lockertracker.service.exception.registration.PasswordsDoesntMatchExce
 import com.lockertracker.service.exception.registration.UsernameAlreadyExistException;
 
 @Service
-public class EmployeeServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
 
 	@Autowired
-	public EmployeeServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 	}
@@ -37,8 +37,19 @@ public class EmployeeServiceImpl implements UserService {
 	}
 
 	@Override
+	public void checkUsernameDuplicateInDbBy(String username) throws UsernameAlreadyExistException {
+		logger.info("input username: " + username);
+
+		UserDBModel userDBModel = userRepository.findByUsername(username);
+		if (userDBModel != null) {
+			throw new UsernameAlreadyExistException();
+		}
+	}
+
+	// ezek inkabb legyenek private-k?
+	@Override
 	public UserDBModel registerUser(UserDBModel userDBModel) {
-		logger.info("New employee! {}, password: xxxx", userDBModel.getUsername());
+		logger.info("New user! {}, password: xxxx", userDBModel.getUsername());
 
 		RoleDBModel roleModel = roleRepository.findByRole(RoleConsts.USER);
 		if (roleModel != null) {
@@ -48,16 +59,6 @@ public class EmployeeServiceImpl implements UserService {
 		}
 
 		return userRepository.save(userDBModel);
-	}
-
-	@Override
-	public void checkUsernameDuplicateInDbBy(String username) throws UsernameAlreadyExistException {
-		logger.info("input username: " + username);
-
-		UserDBModel userDBModel = userRepository.findByUsername(username);
-		if (userDBModel != null) {
-			throw new UsernameAlreadyExistException();
-		}
 	}
 
 }

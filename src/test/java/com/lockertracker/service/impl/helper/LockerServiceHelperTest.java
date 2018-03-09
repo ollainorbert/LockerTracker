@@ -47,11 +47,11 @@ public class LockerServiceHelperTest {
 		assertEquals(lockerDBModels.size(), lockersForGUI.size());
 
 		for (int i = 0; i < lockerDBModels.size(); ++i) {
-			long rentedByEmployeeId = lockersForGUI.get(i).getRentedByUserId();
+			long rentedByUserId = lockersForGUI.get(i).getRentedByUserId();
 			if (lockerDBModels.get(i).getRentedByUserId() == loginedUserID) {
-				assertEquals(loginedUserID, rentedByEmployeeId);
+				assertEquals(loginedUserID, rentedByUserId);
 			} else {
-				assertNotEquals(loginedUserID, rentedByEmployeeId);
+				assertNotEquals(loginedUserID, rentedByUserId);
 			}
 		}
 	}

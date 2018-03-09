@@ -29,8 +29,7 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(RoutingConsts.REGISTRATION)
-	public ModelAndView registration(
-			@ModelAttribute(PageAttributeConsts.Registration.USER) UserDBModel employeeDBModel,
+	public ModelAndView registration(@ModelAttribute(PageAttributeConsts.Registration.USER) UserDBModel employeeDBModel,
 			Principal principal) {
 		if (principal != null) {
 			logger.error("User already logined, but tried to reach the registration page.");
@@ -45,7 +44,11 @@ public class RegistrationController {
 			throws BaseRegistrationException {
 		userService.checkTheTwoPasswordThatMustMatch(employeeModel);
 		userService.checkUsernameDuplicateInDbBy(employeeModel.getUsername());
+		// try {
 		userService.registerUser(employeeModel);
+		// } catch (Exception e) {
+		// logger.info("EXCEPTION: " + e);
+		// }
 
 		return new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOGIN_NAME));
 	}
