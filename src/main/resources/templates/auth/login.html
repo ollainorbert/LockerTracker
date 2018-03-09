@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html layout:decorator="layouts/main">
+<html
+	layout:decorator="layouts/main">
 
 <head>
 </head>
 
 <body>
 
-	<div layout:fragment="loginContent">
+	<div layout:fragment="content">
 	
 		<form name="login" th:action="@{/login}" method="post">
 			<div th:if="${param.error}">Wrong username or password!</div>

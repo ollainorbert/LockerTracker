@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layouts/main">
+<html
+	layout:decorator="layouts/main">
 
 <head>
 </head>
 
 <body>
 
-	<div layout:fragment="loginContent">
+	<div layout:fragment="content">
 
-		<!-- <p th:text="${param.resultMsg != null}? ${param.resultMsg[0]} : ''"/>  -->
 		<p th:text="${param.resultMsg != null}? ${#messages.msg(param.resultMsg[0])} : ''"/>
 
 		<form name="registration" th:action="@{/registrationRequest}" th:object="${user}" method="post">
