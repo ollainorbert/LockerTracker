@@ -119,7 +119,7 @@ public class LockerServiceHelperTest {
 		lockerModel.setRented(!isRenting);
 		Mockito.when(lockerRepository.findById(anIdAsNumber)).thenReturn(lockerModel);
 
-		lockerServiceHelper.setReservableLockerById(anIdAsString, isRenting, lockerRepository);
+		lockerServiceHelper.setReservableLockerByIdInMemory(anIdAsString, isRenting, lockerRepository);
 	}
 
 	/**

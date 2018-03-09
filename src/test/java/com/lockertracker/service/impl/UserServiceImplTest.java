@@ -52,7 +52,7 @@ public class UserServiceImplTest {
 	 * @throws PasswordsDoesntMatchException
 	 */
 	@Test
-	public void testCheckTheTwoPasswordThatMustMatch() throws PasswordsDoesntMatchException {
+	public void testTwoMatchingPassword() throws PasswordsDoesntMatchException {
 		String password = "testPassword";
 		userDBModel.setPassword(password);
 		userDBModel.setPasswordAgain(password);
@@ -67,7 +67,7 @@ public class UserServiceImplTest {
 	 * @throws PasswordsDoesntMatchException
 	 */
 	@Test(expected = PasswordsDoesntMatchException.class)
-	public void testCheckTheTwoPasswordThatMustMatchButDoesntMatch() throws PasswordsDoesntMatchException {
+	public void testTwoDoesntMatchingPassword() throws PasswordsDoesntMatchException {
 		String password = "testPassword";
 		userDBModel.setPassword(password);
 		userDBModel.setPasswordAgain(password + "a");
@@ -81,7 +81,7 @@ public class UserServiceImplTest {
 	 * @throws UsernameAlreadyExistException
 	 */
 	@Test
-	public void testCheckUsernameDuplicateInDbBy() throws UsernameAlreadyExistException {
+	public void testCheckNewUsernameThatNotExistInDB() throws UsernameAlreadyExistException {
 		String userNameThatDoesntExist = "userNameThatDoesntExist";
 		userDBModel.setUsername(userNameThatDoesntExist);
 
@@ -96,7 +96,7 @@ public class UserServiceImplTest {
 	 * @throws UsernameAlreadyExistException
 	 */
 	@Test(expected = UsernameAlreadyExistException.class)
-	public void testCheckUsernameDuplicateInDbByAndItWillBeDuplicate() throws UsernameAlreadyExistException {
+	public void testCheckNewUsernameThatExistInDB() throws UsernameAlreadyExistException {
 		String userNameThatAlreadyExist = "userNameThatAlreadyExist";
 		userDBModel.setUsername(userNameThatAlreadyExist);
 
