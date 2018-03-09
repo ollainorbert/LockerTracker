@@ -1,6 +1,6 @@
 package com.lockertracker.service.exception.locker;
 
-import com.lockertracker.base.BaseExceptionWithLocalization;
+import com.lockertracker.service.exception.BaseExceptionWithLocalization;
 
 public abstract class BaseLockerException extends BaseExceptionWithLocalization {
 

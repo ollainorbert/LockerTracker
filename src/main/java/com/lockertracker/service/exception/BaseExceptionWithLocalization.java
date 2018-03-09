@@ -1,6 +1,6 @@
-package com.lockertracker.base;
+package com.lockertracker.service.exception;
 
-public class BaseExceptionWithLocalization extends Exception {
+public abstract class BaseExceptionWithLocalization extends Exception {
 	private static final long serialVersionUID = 5415736471011297610L;
 
 	public BaseExceptionWithLocalization(String msg) {

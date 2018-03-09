@@ -27,21 +27,13 @@ public class LockerServiceHelper {
 		this.conversionService = conversionService;
 	}
 
-	public LockerDBModel setReservableLockerById(final String id, final boolean isRenting,
-			final LockerRepository lockerRepository) throws BaseLockerException {
-		LockerDBModel lockerDBModel = null;
-		lockerDBModel = checkLockerId(id, lockerRepository);
-		lockerDBModel = setReservableLockerByExistLockerModel(lockerDBModel, isRenting);
-		return lockerDBModel;
-	}
-
 	/**
 	 * Cannot be null. An LockerNotFoundException would be thrown, instead.
 	 * 
 	 * @throws LockerNotFoundException
 	 * @return The existing Locker From DB
 	 */
-	public LockerDBModel checkLockerId(final String id, final LockerRepository lockerRepository)
+	public LockerDBModel checkExistanceLockerById(final String id, final LockerRepository lockerRepository)
 			throws LockerNotFoundException {
 
 		try {
@@ -77,6 +69,14 @@ public class LockerServiceHelper {
 			logger.error(e.toString());
 			throw e;
 		}
+	}
+
+	public LockerDBModel setReservableLockerById(final String id, final boolean isRenting,
+			final LockerRepository lockerRepository) throws BaseLockerException {
+		LockerDBModel lockerDBModel = null;
+		lockerDBModel = checkExistanceLockerById(id, lockerRepository);
+		lockerDBModel = setReservableLockerByExistLockerModel(lockerDBModel, isRenting);
+		return lockerDBModel;
 	}
 
 	public List<LockerGUIModel> convertDBtoGUI(final List<LockerDBModel> lockersFromDB, final long loginedUserID) {

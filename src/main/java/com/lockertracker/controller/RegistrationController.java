@@ -44,11 +44,7 @@ public class RegistrationController {
 			throws BaseRegistrationException {
 		userService.checkTheTwoPasswordThatMustMatch(employeeModel);
 		userService.checkUsernameDuplicateInDbBy(employeeModel.getUsername());
-		// try {
 		userService.registerUser(employeeModel);
-		// } catch (Exception e) {
-		// logger.info("EXCEPTION: " + e);
-		// }
 
 		return new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOGIN_NAME));
 	}
