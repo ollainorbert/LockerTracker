@@ -3,16 +3,16 @@
 	layout:decorator="layouts/main">
 
 <head>
+	<link rel="stylesheet" type="text/css" href="css/locker.css" />
 </head>
 
 <body>
 
 <div layout:fragment="content">
 
-	hello lockers
-	<br/>
-	<p th:text="${param.resultMsg != null}? ${#messages.msg(param.resultMsg[0])} : ''"/>
-	<br/><br/>
+	<div class="messageAtTop">
+		<p th:text="${param.resultMsg != null}? ${#messages.msg(param.resultMsg[0])} : ''"/>
+	</div>
 	
 	<div id="lockerContainer">
 		<div class="lockerItemClass" th:each="item : ${lockerList}">
@@ -42,12 +42,10 @@
 			        	Release!
 			        </button>
 		        </form>
-	        </div> 
+	        </div>
+	         
        </div>
 	</div>
-	
-	<br/><br/>
-	<a href="/x">Navigate to the X Page!</a>
 	
 </div>
 

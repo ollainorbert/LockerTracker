@@ -3,29 +3,38 @@
 	layout:decorator="layouts/main">
 
 <head>
+	<link rel="stylesheet" type="text/css" href="css/registration.css" />
 </head>
 
 <body>
 
 	<div layout:fragment="content">
 
-		<p th:text="${param.resultMsg != null}? ${#messages.msg(param.resultMsg[0])} : ''"/>
+		<div class="messageAtTop">	
+			<p th:text="${param.resultMsg != null}? ${#messages.msg(param.resultMsg[0])} : ''"/>
+		</div>
 
-		<form name="registration" th:action="@{/registrationRequest}" th:object="${user}" method="post">
-			<h2>Registration form</h2>
-			
-	 	    <input type="text" th:field="*{username}"
-	 	    	placeholder="Username" required="true" maxlength="20" /> 
-	 	    <br/>
-		    <input type="password" th:field="*{password}"
-		    	placeholder="Password" required="true" maxlength="20" />
-			<br/>
-			<input type="password" th:field="*{passwordAgain}"
-				placeholder="Password Again" required="true" maxlength="20" />
-			<br/>
-			<button type="submit">Sign up!</button>
-		</form>
-
+		<div class="textCenterCenter">	
+			<form  th:action="@{/registrationRequest}" th:object="${user}" method="post">
+				<h2>Registration form</h2>
+				<br/>
+				
+		 	    <input type="text" th:field="*{username}"
+		 	    	placeholder="Username" required="true" maxlength="20" /> 
+		 	    <br/><br/>	    
+			    <input type="password" th:field="*{password}"
+			    	placeholder="Password" required="true" maxlength="20" />
+				<br/><br/>
+				<input type="password" th:field="*{passwordAgain}"
+					placeholder="Password Again" required="true" maxlength="20" />
+				<br/><br/>
+				
+				<div class="divInnerCenter">
+					<button type="submit">Sign up!</button>
+				</div>
+				
+			</form>			
+		</div>
 	</div>
 
 </body>

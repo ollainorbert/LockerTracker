@@ -8,26 +8,37 @@
 <body>
 
 	<div layout:fragment="content">
-	
-		<form name="login" th:action="@{/login}" method="post">
+		<div class="messageAtTop">	
 			<div th:if="${param.error}">Wrong username or password!</div>
 			<div th:if="${param.logout}">Logout successful!</div>
-			
-			<label for="username">Username:</label> 
+		</div>
+		
+		<div class="textCenterCenter">	
+			<form name="login" th:action="@{/login}" method="post">
+				
+				<label for="username">Username:</label> 
 				<br/>
 			    <input type="text" id="username" name="username" placeholder="Username"
 			    	required="true" maxlength="20" /> 
 			    <br/>
-			<label for="password">Password:</label> 
+			    
+				<label for="password">Password:</label> 
 				<br/>
 			    <input type="password" id="password" name="password" placeholder="Password"
 			    	required="true" maxlength="20" />
 			    <br/>
+				
+				<br/>
+				<div class="divInnerCenter">
+					<button type="submit">Login!</button>
+				</div>			
+			</form>
 			
-			<button type="submit">Login!</button>
-		</form>
+			
+		</div>
 	
-		<a href="/registration">Registration!</a>
+		<br/><br/>
+		<a href="/registration" class="textCenterCenter">Registration!</a>
 	
 	</div>
 

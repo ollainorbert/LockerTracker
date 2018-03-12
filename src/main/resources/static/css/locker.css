@@ -1,0 +1,57 @@
+#lockerContainer {
+	width: 70%;
+	margin: auto;
+}
+
+.lockerItemClass {	
+	margin: auto;
+	background-color: darkorange;	
+	height: 50px;
+}
+
+.lockerItemClass:nth-child(odd) {
+	background-color: orange;
+}
+
+.lockerItemClass:hover {
+	background-color: red;
+}
+
+.lockerItemClass:nth-child(odd):hover {
+	background-color: red;
+}
+
+.lockerItemLeftSide {
+	position: relative;
+	width: 70%;
+	float: left;
+}
+
+.lockerItemRightSide {
+	position: relative;
+	width: 30%;
+	float: right;
+	align-items: center;
+	height: 100%;
+}
+
+.rentingForm {	
+	height: 100%;
+}
+
+.rentingButton {
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+}
+
+body {
+    min-width: 330px !important;
+}
+
+@media only screen and (max-width: 330px) {
+	/* here would come the low px css; but
+	min-width: 330px */
+}
+
+

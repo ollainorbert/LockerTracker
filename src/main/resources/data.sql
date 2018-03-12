@@ -11,6 +11,9 @@ insert into Lockers(rented_by_user_id, created_at)
 values('3', '2018-02-28 09:00:00');
 
 insert into Lockers(rented_by_user_id, created_at)
+values(NULL, '2018-02-28 09:00:00');
+
+insert into Lockers(rented_by_user_id, created_at)
 values('1', '2018-02-28 09:00:00');
 
 insert into Lockers(rented_by_user_id, created_at)
@@ -18,6 +21,12 @@ values(NULL, '2018-02-28 09:00:00');
 
 insert into Lockers(rented_by_user_id, created_at)
 values(NULL, '2018-02-28 09:00:00');
+
+insert into Lockers(rented_by_user_id, created_at)
+values(NULL, '2018-02-28 09:00:00');
+
+insert into Lockers(rented_by_user_id, created_at)
+values(3, '2018-02-28 09:00:00');
 
 insert into Lockerrentals(user_id, locker_id, created_at)
 values('1', '1', '2018-02-28 09:00:00');

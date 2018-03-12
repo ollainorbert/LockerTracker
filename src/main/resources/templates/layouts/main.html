@@ -12,24 +12,32 @@
 
 <body>
 	<div>
-  		 <div>
-  			 <a href="/">Home</a>
-  			 <a href="/lockers">Lockers</a>
-  			 <p th:text="#{greeting}"></p> 
-  		 </div>
-  		  <div>
-  		  	<span th:text="#{lang.change}"></span>:
-			<select id="locales">
-				<option value="" />
-			    <option value="eng" th:text="#{lang.eng}"></option>
-			    <option value="hu" th:text="#{lang.hu}"></option>
-			</select>
-  		  </div>
+		<header>
+			<div id="languageChanger">
+  		  		<span th:text="#{lang.change}"></span>:
+  		  		<br/>	  		
+				<select id="locales">
+					<option value="" />
+			    	<option value="eng" th:text="#{lang.eng}"></option>
+			    	<option value="hu" th:text="#{lang.hu}"></option>
+				</select>
+  		 	</div>
+  		 	
+  		 	<div id="loginStatusPanel">
+  		 		<div>
+  		 			Welcome <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>!			
+  		 		</div>
+  		 		<div id="logoutForm">
+					<form sec:authorize="isAuthenticated()" id="formlogout" th:action="@{/logout}" method="post">
+						<a href="javascript:{}" onclick="document.getElementById('formlogout').submit(); return false;">Logout</a>
+					</form>
+				</div>
+			</div>
+		</header>
+
 		<nav>
-			Welcome <span sec:authentication="name"> You are not logged in! </span> !
-			<form sec:authorize="isAuthenticated()" id="formlogout" th:action="@{/logout}" method="post">
-				<a href="javascript:{}" onclick="document.getElementById('formlogout').submit(); return false;">Logout</a>
-			</form>
+			<a href="/"><div class="navItem"><p>Home</p></div></a>
+			<a href="/lockers"><div class="navItem"><p>Lockers</p></div></a>
 		</nav>
 		
 		<div layout:fragment="content">
@@ -39,12 +47,10 @@
 		</div>
 
 
-		<br/><br/><br/><br/><br/>
+		<br/><br/><br/>
 		<footer>
-			<a href="/releaseAllLocker">Release the lockers (TEST ONLY!)</a>
-			<br/><br/>
-			<a href="/registration">Registration!</a>
-			<p>Foo ter</p>
+			<!-- <a href="/releaseAllLocker">Release the lockers (TEST ONLY!)</a>  -->
+			<p>Norbert Ollai</p>
 		</footer>
 	
 	</div>
