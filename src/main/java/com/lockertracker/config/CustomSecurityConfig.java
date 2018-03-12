@@ -13,7 +13,7 @@ import com.lockertracker.resources.RoutingConsts;
 
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userService;

@@ -1,4 +1,4 @@
-package com.lockertracker.config;
+package com.lockertracker.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.lockertracker.model.UserDBModel;
 import com.lockertracker.repository.UserRepository;
-import com.lockertracker.security.UserDetailsImpl;
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -22,11 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDBModel employeeModel = userRepository.findByUsername(username);
-		if (employeeModel == null) {
+		UserDBModel userDBModel = userRepository.findByUsername(username);
+		if (userDBModel == null) {
 			throw new UsernameNotFoundException(username);
 		}
 
-		return new UserDetailsImpl(employeeModel);
+		return new UserDetailsImpl(userDBModel);
 	}
 }
