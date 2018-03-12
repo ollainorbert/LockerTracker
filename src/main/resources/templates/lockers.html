@@ -16,35 +16,31 @@
 	
 	<ul>
 	    <li th:each="item : ${lockerList}">
-	        <span th:text="'Id: ' + ${item.id} + '; '">Error!</span>
-	        <span th:text="${item.rentedByString}">Error!</span>
+	        <span th:text="'Number (Id): ' + ${item.id}">Error!</span>
+	        
 	        <form method="POST"
-	        	th:action="@{/rentLocker(id=${item.id})}"
-	        	th:if="${item.rentedByEnum.toString() != 'RENTED_BY_YOU'}">
+	        	th:if="${item.rentedByEnum.toString() != 'RENTED_BY_YOU'}"
+	        	th:action="@{/rentLocker(id=${item.id})}">
+	        	
 		        <button type="submit"
-		        	th:text="${item.rented}? 'Already rented!' : 'Rent it!'"
-		        	th:disabled="${item.rented}? true : false"
-		        	>
+		        	th:text="${item.rentedByEnum.toString() == 'NOT_RENTED'}? #{rented.rentIt} : #{rented.alreadyRented}"	       
+		        	th:disabled="${item.rentedByEnum.toString() != 'NOT_RENTED'}">
 		        	Error with the button!
 		        </button>
 	        </form>
-	        <form method="POST"
-	        	th:action="@{/releaseLocker(id=${item.id})}"
-	        	th:if="${item.rentedByEnum.toString() == 'RENTED_BY_YOU'}">
-		        <button type="submit">
+	        
+	        <form method="POST"        	
+	        	th:if="${item.rentedByEnum.toString() == 'RENTED_BY_YOU'}"
+	        	th:action="@{/releaseLocker(id=${item.id})}">
+	        	
+		        <button type="submit"
+		        	th:text="#{rented.release}">
 		        	Release!
 		        </button>
 	        </form>
 	        <br/>
 	    </li>
 	</ul>
-	
-	<table>
-		<caption>Lockers</caption>
-		<thead></thead>
-		<tfoot></tfoot>
-		<tbody>Be happy!</tbody>
-	</table>
 	
 	<br/><br/>
 	<a href="/x">Navigate to the X Page!</a>

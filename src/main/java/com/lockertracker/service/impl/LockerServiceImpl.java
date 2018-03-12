@@ -43,7 +43,7 @@ public class LockerServiceImpl implements LockerService {
 		List<LockerDBModel> allLockerModel = lockerRepository.findAll();
 
 		for (LockerDBModel lockerModel : allLockerModel) {
-			lockerModel.setRented(false);
+			lockerModel.setRentedByUserId(null);
 			lockerRepository.save(lockerModel);
 		}
 	}
@@ -64,7 +64,9 @@ public class LockerServiceImpl implements LockerService {
 
 	@Override
 	public void releaseLockerById(final String id) throws BaseLockerException {
+		logger.info("Release start for id: " + id);
 		LockerDBModel lockerModel = lockerServiceHelper.setReservableLockerByIdInMemory(id, false, lockerRepository);
+		lockerModel.setRentedByUserId(null);
 
 		lockerRepository.save(lockerModel);
 		logger.info("Locker release success!");

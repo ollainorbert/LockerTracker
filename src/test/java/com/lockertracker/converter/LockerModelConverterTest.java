@@ -2,6 +2,7 @@ package com.lockertracker.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,22 +24,45 @@ public class LockerModelConverterTest {
 	}
 
 	@Test
-	public void testConvert() {
+	public void testConvertWhenTheUserIsTheOwnerToo() {
 		long lockerId = 0;
-		boolean isRented = true;
 		long rentedByUserId = 0;
 
 		LockerDBModel lockerDBModel = new LockerDBModel();
 		lockerDBModel.setId(lockerId);
-		lockerDBModel.setRented(isRented);
 		lockerDBModel.setRentedByUserId(rentedByUserId);
 
 		LockerGUIModel lockerGUIModel = lockerModelConverter.convert(lockerDBModel);
 
 		assertNotNull(lockerGUIModel);
 		assertEquals(lockerDBModel.getId(), lockerGUIModel.getId());
-		assertEquals(lockerDBModel.isRented(), lockerGUIModel.isRented());
-		assertEquals(lockerDBModel.getRentedByUserId(), lockerGUIModel.getRentedByUserId());
+		if (lockerDBModel.getRentedByUserId() == null) {
+			assertNull(lockerGUIModel.getRentedByUserId());
+		} else {
+			assertEquals((long) lockerDBModel.getRentedByUserId(), (long) lockerGUIModel.getRentedByUserId());
+		}
+
+	}
+
+	@Test
+	public void testConvertWhenTheUserIsNotTheOwner() {
+		long lockerId = 0;
+		long rentedByUserId = 1;
+
+		LockerDBModel lockerDBModel = new LockerDBModel();
+		lockerDBModel.setId(lockerId);
+		lockerDBModel.setRentedByUserId(rentedByUserId);
+
+		LockerGUIModel lockerGUIModel = lockerModelConverter.convert(lockerDBModel);
+
+		assertNotNull(lockerGUIModel);
+		assertEquals(lockerDBModel.getId(), lockerGUIModel.getId());
+		if (lockerDBModel.getRentedByUserId() == null) {
+			assertNull(lockerGUIModel.getRentedByUserId());
+		} else {
+			assertEquals((long) lockerDBModel.getRentedByUserId(), (long) lockerGUIModel.getRentedByUserId());
+		}
+
 	}
 
 }

@@ -54,12 +54,13 @@ public class LockerServiceHelper {
 	public LockerDBModel setReservableLockerByExistLockerModel(LockerDBModel lockerModel, final boolean isRenting)
 			throws BaseLockerException {
 
+		boolean isRented = (lockerModel.getRentedByUserId() == null) ? false : true;
+
 		try {
-			if (lockerModel.isRented() != isRenting) {
-				lockerModel.setRented(isRenting);
+			if (isRented != isRenting) {
 				return lockerModel;
 			} else {
-				if (lockerModel.isRented()) {
+				if (isRented) {
 					throw new LockerAlreadyRentedException();
 				} else {
 					throw new LockerAlreadyReleasedException();
@@ -73,9 +74,13 @@ public class LockerServiceHelper {
 
 	public LockerDBModel setReservableLockerByIdInMemory(final String id, final boolean isRenting,
 			final LockerRepository lockerRepository) throws BaseLockerException {
+		logger.info("setReservableLockerByIdInMemory");
+
 		LockerDBModel lockerDBModel = null;
 		lockerDBModel = checkExistanceLockerById(id, lockerRepository);
 		lockerDBModel = setReservableLockerByExistLockerModel(lockerDBModel, isRenting);
+
+		logger.info("setReservableLockerByIdInMemory END.");
 		return lockerDBModel;
 	}
 

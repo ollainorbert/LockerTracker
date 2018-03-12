@@ -1,27 +1,21 @@
 package com.lockertracker.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Lockers")
 public class LockerDBModel extends BaseDBModel {
-	private boolean rented;
-	private long rentedByUserId;
 
-	public boolean isRented() {
-		return rented;
-	}
+	@Column(nullable = true)
+	private Long rentedByUserId;
 
-	public void setRented(boolean rented) {
-		this.rented = rented;
-	}
-
-	public long getRentedByUserId() {
+	public Long getRentedByUserId() {
 		return rentedByUserId;
 	}
 
-	public void setRentedByUserId(long rentedByUserId) {
+	public void setRentedByUserId(Long rentedByUserId) {
 		this.rentedByUserId = rentedByUserId;
 	}
 

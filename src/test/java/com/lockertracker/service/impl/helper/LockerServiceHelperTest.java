@@ -82,44 +82,38 @@ public class LockerServiceHelperTest {
 
 	@Test(expected = LockerAlreadyRentedException.class)
 	public void testLockerRentingByExistLockerModelThatAlreadyRented() throws BaseLockerException {
-		boolean isRenting = true;
-		lockerModel.setRented(isRenting);
+		lockerModel.setRentedByUserId((long) 3);
 
-		lockerServiceHelper.setReservableLockerByExistLockerModel(lockerModel, isRenting);
+		lockerServiceHelper.setReservableLockerByExistLockerModel(lockerModel, true);
 	}
 
 	@Test(expected = LockerAlreadyReleasedException.class)
 	public void testLockerReleasingByExistLockerModelThatAlreadyReleased() throws BaseLockerException {
-		boolean isRenting = false;
-		lockerModel.setRented(isRenting);
+		lockerModel.setRentedByUserId(null);
 
-		lockerServiceHelper.setReservableLockerByExistLockerModel(lockerModel, isRenting);
+		lockerServiceHelper.setReservableLockerByExistLockerModel(lockerModel, false);
 	}
 
 	@Test
 	public void testLockerRentingByExistLockerModel() throws BaseLockerException {
-		boolean isRenting = true;
-		lockerModel.setRented(!isRenting);
+		lockerModel.setRentedByUserId(null);
 
-		lockerServiceHelper.setReservableLockerByExistLockerModel(lockerModel, isRenting);
+		lockerServiceHelper.setReservableLockerByExistLockerModel(lockerModel, true);
 	}
 
 	@Test
 	public void testLockerReleasingByExistLockerModel() throws BaseLockerException {
-		boolean isRenting = false;
-		lockerModel.setRented(!isRenting);
+		lockerModel.setRentedByUserId((long) 3);
 
-		lockerServiceHelper.setReservableLockerByExistLockerModel(lockerModel, isRenting);
+		lockerServiceHelper.setReservableLockerByExistLockerModel(lockerModel, false);
 	}
 
 	@Test
 	public void testAFullRenting() throws BaseLockerException {
-		boolean isRenting = true;
-
-		lockerModel.setRented(!isRenting);
+		lockerModel.setRentedByUserId(null);
 		Mockito.when(lockerRepository.findById(anIdAsNumber)).thenReturn(lockerModel);
 
-		lockerServiceHelper.setReservableLockerByIdInMemory(anIdAsString, isRenting, lockerRepository);
+		lockerServiceHelper.setReservableLockerByIdInMemory(anIdAsString, true, lockerRepository);
 	}
 
 	/**
@@ -128,20 +122,18 @@ public class LockerServiceHelperTest {
 	 */
 	@Test
 	public void testConvertDBtoGUI() {
-		long loginedUserID = 1;
+		Long loginedUserID = (long) 1;
 
 		List<LockerDBModel> lockerDBModels = new ArrayList<LockerDBModel>();
 
 		LockerDBModel lockerDBModel1 = new LockerDBModel();
 		lockerDBModel1.setId(0);
-		lockerDBModel1.setRented(true);
-		lockerDBModel1.setRentedByUserId(0);
+		lockerDBModel1.setRentedByUserId((long) 3);
 		lockerDBModels.add(lockerDBModel1);
 
 		LockerDBModel lockerDBModel2 = new LockerDBModel();
 		lockerDBModel2.setId(1);
-		lockerDBModel2.setRented(false);
-		lockerDBModel2.setRentedByUserId(1);
+		lockerDBModel2.setRentedByUserId(null);
 		lockerDBModels.add(lockerDBModel2);
 
 		List<LockerGUIModel> lockersForGUI = lockerServiceHelper.convertDBtoGUI(lockerDBModels, loginedUserID);
@@ -150,7 +142,7 @@ public class LockerServiceHelperTest {
 		assertEquals(lockerDBModels.size(), lockersForGUI.size());
 
 		for (int i = 0; i < lockerDBModels.size(); ++i) {
-			long rentedByUserId = lockersForGUI.get(i).getRentedByUserId();
+			Long rentedByUserId = lockersForGUI.get(i).getRentedByUserId();
 			if (lockerDBModels.get(i).getRentedByUserId() == loginedUserID) {
 				assertEquals(loginedUserID, rentedByUserId);
 			} else {

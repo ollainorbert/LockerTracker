@@ -41,6 +41,7 @@ public class LockerServiceImplTest {
 	private LockerDBModel lockerDBModel;
 	private UserDBModel userDBModel;
 	private long testLockerDbModelID = 3;
+	private Long testLockerDbModelUserId = (long) 3;
 	private String testUserName = "testUserName";
 	private String testId = "testId";
 
@@ -61,28 +62,6 @@ public class LockerServiceImplTest {
 		this.testId = "testId";
 	}
 
-	// @Test
-	// public void testfindAll() {
-	// Mockito.when(lockerRepository.findAll()).thenReturn(new Ar)
-	// }
-
-	// @Test
-	// public void testX() {
-	// List<LockerDBModel> lockerDBModels = new ArrayList<LockerDBModel>();
-	//
-	// LockerDBModel lockerDBModel1 = new LockerDBModel();
-	// lockerDBModel1.setRented(true);
-	// lockerDBModels.add(lockerDBModel1);
-	//
-	// LockerDBModel lockerDBModel2 = new LockerDBModel();
-	// lockerDBModel2.setRented(false);
-	// lockerDBModels.add(lockerDBModel2);
-	//
-	// Mockito.when(lockerRepository.findAll()).thenReturn(lockerDBModels);
-	// // Mockito.when(lockerRepository.save(lockerDBModel1)).then;
-	//
-	// }
-
 	@Test
 	public void testRentingALocker() throws BaseLockerException {
 		lockerDBModel.setId(testLockerDbModelID);
@@ -99,8 +78,9 @@ public class LockerServiceImplTest {
 	@Test
 	public void testReleasingALocker() throws BaseLockerException {
 		lockerDBModel.setId(testLockerDbModelID);
+		lockerDBModel.setRentedByUserId(testLockerDbModelUserId);
 
-		Mockito.when(lockerServiceHelper.setReservableLockerByIdInMemory(testId, true, lockerRepository))
+		Mockito.when(lockerServiceHelper.setReservableLockerByIdInMemory(testId, false, lockerRepository))
 				.thenReturn(lockerDBModel);
 		Mockito.when(lockerRepository.save(lockerDBModel)).thenReturn(null);
 
