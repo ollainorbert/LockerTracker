@@ -3,3 +3,49 @@ ul {
   padding: 0;
   margin: 0;
 }
+
+.textCenterCenter {
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+}
+
+#lockerContainer {
+	background-color: lightgreen;
+	overflow:hidden;
+}
+
+.lockerItemClass {
+	width: 50%;
+	margin: auto;
+	background-color: lightblue;	
+	height: 50px;
+}
+
+.lockerItemClass:nth-child(odd) {
+	background-color: orange;
+}
+
+.lockerItemLeftSide {
+	position: relative;
+	width: 70%;
+	float: left;
+}
+
+.lockerItemRightSide {
+	position: relative;
+	width: 30%;
+	float: right;
+	align-items: center;
+	height: 100%;
+}
+
+.rentingForm {	
+	height: 100%;
+}
+
+.rentingButton {
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+}

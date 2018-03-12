@@ -14,33 +14,37 @@
 	<p th:text="${param.resultMsg != null}? ${#messages.msg(param.resultMsg[0])} : ''"/>
 	<br/><br/>
 	
-	<ul>
-	    <li th:each="item : ${lockerList}">
-	        <span th:text="'Number (Id): ' + ${item.id}">Error!</span>
-	        
-	        <form method="POST"
-	        	th:if="${item.rentedByEnum.toString() != 'RENTED_BY_YOU'}"
-	        	th:action="@{/rentLocker(id=${item.id})}">
-	        	
-		        <button type="submit"
-		        	th:text="${item.rentedByEnum.toString() == 'NOT_RENTED'}? #{rented.rentIt} : #{rented.alreadyRented}"	       
-		        	th:disabled="${item.rentedByEnum.toString() != 'NOT_RENTED'}">
-		        	Error with the button!
-		        </button>
-	        </form>
-	        
-	        <form method="POST"        	
-	        	th:if="${item.rentedByEnum.toString() == 'RENTED_BY_YOU'}"
-	        	th:action="@{/releaseLocker(id=${item.id})}">
-	        	
-		        <button type="submit"
-		        	th:text="#{rented.release}">
-		        	Release!
-		        </button>
-	        </form>
-	        <br/>
-	    </li>
-	</ul>
+	<div id="lockerContainer">
+		<div class="lockerItemClass" th:each="item : ${lockerList}">
+	   	
+	   		<div class="lockerItemLeftSide textCenterCenter">
+	   			<p th:text="'Number (Id): ' + ${item.id}">Error!</p>
+	   		</div>
+
+			<div class="lockerItemRightSide">
+		        <form method="POST" class="rentingForm"
+		        	th:if="${item.rentedByEnum.toString() != 'RENTED_BY_YOU'}"
+		        	th:action="@{/rentLocker(id=${item.id})}">
+		        	
+			        <button type="submit" class="rentingButton"
+			        	th:text="${item.rentedByEnum.toString() == 'NOT_RENTED'}? #{rented.rentIt} : #{rented.alreadyRented}"	       
+			        	th:disabled="${item.rentedByEnum.toString() != 'NOT_RENTED'}">
+			        	Error with the button!
+			        </button>
+		        </form>
+		        
+		        <form method="POST" class="rentingForm"
+		        	th:if="${item.rentedByEnum.toString() == 'RENTED_BY_YOU'}"
+		        	th:action="@{/releaseLocker(id=${item.id})}">
+		        	
+			        <button type="submit" class="rentingButton"
+			        	th:text="#{rented.release}">
+			        	Release!
+			        </button>
+		        </form>
+	        </div> 
+       </div>
+	</div>
 	
 	<br/><br/>
 	<a href="/x">Navigate to the X Page!</a>
