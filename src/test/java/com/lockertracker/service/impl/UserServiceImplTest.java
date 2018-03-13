@@ -61,7 +61,7 @@ public class UserServiceImplTest {
 	}
 
 	/**
-	 * If two passord doesn't match, must throw an PasswordsDoesntMatchException
+	 * If two password doesn't match, must throw an PasswordsDoesntMatchException
 	 * exception.
 	 * 
 	 * @throws PasswordsDoesntMatchException

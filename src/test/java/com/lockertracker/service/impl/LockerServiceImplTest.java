@@ -40,14 +40,11 @@ public class LockerServiceImplTest {
 
 	private LockerDBModel lockerDBModel;
 	private UserDBModel userDBModel;
-	private long testLockerDbModelID = 3;
-	private Long testLockerDbModelUserId = (long) 3;
-	private String testUserName = "testUserName";
-	private String testId = "testId";
+	private long testLockerDbModelID;
+	private Long testLockerDbModelUserId;
+	private String testUserName;
+	private String testId;
 
-	/**
-	 * We need some mock objects.
-	 */
 	@Before
 	public void setup() {
 		this.lockerRepository = mock(LockerRepository.class);
@@ -58,6 +55,7 @@ public class LockerServiceImplTest {
 		this.lockerDBModel = new LockerDBModel();
 		this.userDBModel = new UserDBModel();
 		this.testLockerDbModelID = 3;
+		this.testLockerDbModelUserId = (long) 3;
 		this.testUserName = "testUserName";
 		this.testId = "testId";
 	}
