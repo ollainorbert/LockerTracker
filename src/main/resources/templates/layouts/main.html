@@ -36,8 +36,12 @@
 		</header>
 
 		<nav>
-			<a href="/"><div class="navItem"><p th:text="#{navbar.home}">Home</p></div></a>
-			<a href="/lockers"><div class="navItem"><p th:text="#{navbar.lockers}">Lockers</p></div></a>
+			<a href="/" class="navLink">
+				<div class="navItem"><p th:text="#{navbar.home}">Home</p></div>
+			</a>
+			<a href="/lockers" class="navLink">
+				<div class="navItem"><p th:text="#{navbar.lockers}">Lockers</p></div>
+			</a>
 		</nav>
 		
 		<div layout:fragment="content">

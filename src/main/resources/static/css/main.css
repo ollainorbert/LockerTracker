@@ -29,23 +29,26 @@ nav {
 	height: 50px;
 	position: relative;
 	top: 10px;	
-	background-color: lightblue;
+	background-color: darkblue;
 	margin: auto;
+}
+
+.navLink > .navItem {
+	background-color: lawnGreen;
+}
+
+.navLink:nth-child(odd) > .navItem {
+	background-color: greenYellow;
 }
 
 .navItem {
 	width: 20%;
 	height: 50px;
 	display: inline-block;
-	background-color: chartreuse;
 }
 
-.navItem:nth-child(odd) {
-	background-color: greenYellow;
-}
-
-.navItem:hover {
-	background-color: lawnGreen;
+.navLink > .navItem:hover {
+	background-color: lightblue;
 }
 
 .navItem > p {
