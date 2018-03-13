@@ -25,19 +25,19 @@
   		 	
   		 	<div id="loginStatusPanel">
   		 		<div>
-  		 			Welcome <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>!			
+  		 			<span th:text="#{header.welcome}"></span> <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>!			
   		 		</div>
   		 		<div id="logoutForm">
 					<form sec:authorize="isAuthenticated()" id="formlogout" th:action="@{/logout}" method="post">
-						<a href="javascript:{}" onclick="document.getElementById('formlogout').submit(); return false;">Logout</a>
+						<a href="javascript:{}" onclick="document.getElementById('formlogout').submit(); return false;"><span th:text="#{navbar.logout}"></span></a>
 					</form>
 				</div>
 			</div>
 		</header>
 
 		<nav>
-			<a href="/"><div class="navItem"><p>Home</p></div></a>
-			<a href="/lockers"><div class="navItem"><p>Lockers</p></div></a>
+			<a href="/"><div class="navItem"><p th:text="#{navbar.home}">Home</p></div></a>
+			<a href="/lockers"><div class="navItem"><p th:text="#{navbar.lockers}">Lockers</p></div></a>
 		</nav>
 		
 		<div layout:fragment="content">

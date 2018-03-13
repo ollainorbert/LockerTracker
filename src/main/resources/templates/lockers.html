@@ -18,7 +18,7 @@
 		<div class="lockerItemClass" th:each="item : ${lockerList}">
 	   	
 	   		<div class="lockerItemLeftSide textCenterCenter">
-	   			<p th:text="'Number (Id): ' + ${item.id}">Error!</p>
+	   			<p th:text="#{lockers.lockerName} + ': ' + ${item.id}">Error!</p>
 	   		</div>
 
 			<div class="lockerItemRightSide">
