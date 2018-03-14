@@ -3,7 +3,6 @@ package com.lockertracker.service.impl.helper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +43,6 @@ public class LockerServiceHelperTest {
 		this.lockerModel = new LockerDBModel();
 		this.anIdAsString = "5";
 		this.anIdAsNumber = Long.parseLong(anIdAsString);
-
-		this.lockerRepository = mock(LockerRepository.class);
 	}
 
 	/**

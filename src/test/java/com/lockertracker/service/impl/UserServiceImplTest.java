@@ -1,16 +1,15 @@
 package com.lockertracker.service.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.lockertracker.model.UserDBModel;
 import com.lockertracker.repository.RoleRepository;
@@ -19,7 +18,7 @@ import com.lockertracker.resources.RoleConsts;
 import com.lockertracker.service.exception.registration.PasswordsDoesntMatchException;
 import com.lockertracker.service.exception.registration.UsernameAlreadyExistException;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class UserServiceImplTest {
 
@@ -40,8 +39,6 @@ public class UserServiceImplTest {
 	@Before
 	public void setup() {
 		this.userDBModel = new UserDBModel();
-		this.userRepository = mock(UserRepository.class);
-		this.roleRepository = mock(RoleRepository.class);
 
 		this.userServiceImpl = new UserServiceImpl(userRepository, roleRepository);
 	}

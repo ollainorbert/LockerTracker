@@ -1,7 +1,6 @@
 package com.lockertracker.service.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.lockertracker.model.LockerDBModel;
 import com.lockertracker.model.LockerGUIModel;
@@ -23,7 +22,7 @@ import com.lockertracker.service.exception.locker.BaseLockerException;
 import com.lockertracker.service.exception.locker.UserNotFoundException;
 import com.lockertracker.service.impl.helper.LockerServiceHelper;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class LockerServiceImplTest {
 
@@ -47,9 +46,6 @@ public class LockerServiceImplTest {
 
 	@Before
 	public void setup() {
-		this.lockerRepository = mock(LockerRepository.class);
-		this.lockerServiceHelper = mock(LockerServiceHelper.class);
-		this.userRepository = mock(UserRepository.class);
 		this.lockerServiceImpl = new LockerServiceImpl(lockerRepository, lockerServiceHelper, userRepository);
 
 		this.lockerDBModel = new LockerDBModel();

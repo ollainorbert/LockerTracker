@@ -4,24 +4,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.lockertracker.model.LockerDBModel;
 import com.lockertracker.model.LockerGUIModel;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class LockerModelConverterTest {
-	private LockerModelConverter lockerModelConverter;
 
-	@Before
-	public void setup() {
-		lockerModelConverter = new LockerModelConverter();
-	}
+	@InjectMocks
+	private LockerModelConverter lockerModelConverter;
 
 	@Test
 	public void testConvertWhenTheUserIsTheOwnerToo() {
