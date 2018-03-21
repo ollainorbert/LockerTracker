@@ -33,10 +33,20 @@
        </div>
 	</div>
 	
+	<div id="reservation-list">
+			<!-- the content will be placed here* -->
+	</div>
+	
 	<script id="locker-container-template" type="text/x-handlebars-template">
-		{{#each content}}
+		<p>Hello</p>
+		{{#each this}}
+			<div>
+				<p>Hello</p>
+				<p>{{id}}</p>
+				<p>{{rentedByEnum}}</p>
+			</div>
+		{{/each}}
 
-					<p>{{id}}</p>
 
 	</script>
 	

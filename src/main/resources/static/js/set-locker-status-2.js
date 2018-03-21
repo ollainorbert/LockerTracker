@@ -22,8 +22,8 @@ $(document).ready(function() {
 			success : function(response) {
 				console.log(response);
 				
-				var h = reservationListTemplate(response);     // generate HTML from the object using the template
-		        $("#reservation-list").empty();
+				var h = reservationListTemplate(response);     // generate HTML from the object using the template	        
+				$("#reservation-list").empty();
 		        $("#reservation-list").append(h);              // insert the generated HTML into the document
 				
 		        
