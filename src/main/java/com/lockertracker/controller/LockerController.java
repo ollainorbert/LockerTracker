@@ -4,8 +4,11 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,6 +67,27 @@ public class LockerController {
 	public ModelAndView releaseAllLocker() throws BaseLockerException {
 		lockerService.releaseAllLocker();
 		return new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
+	}
+
+	@RequestMapping("lockers2")
+	public ModelAndView lockers2(Principal principal) throws BaseLockerException {
+		List<LockerGUIModel> lockersForGUI = lockerService.getAllLockerWithUserBelongs(principal.getName());
+
+		ModelAndView modelAndView = new ModelAndView("lockers2");
+		modelAndView.addObject(PageAttributeConsts.Locker.LOCKERLIST, lockersForGUI);
+
+		return modelAndView;
+	}
+
+	// lekerem id-bol, es meghatarozom hogy renting vagy releaseing
+	@RequestMapping(value = "/lockersAjax/{id}", method = RequestMethod.POST)
+	public ResponseEntity<List<LockerGUIModel>> testAjaxCall(Principal principal, @PathVariable("id") long id)
+			throws BaseLockerException {
+		lockerService.rentLocker(("" + id), principal.getName());
+
+		List<LockerGUIModel> lockersForGUI = lockerService.getAllLockerWithUserBelongs(principal.getName());
+
+		return new ResponseEntity<List<LockerGUIModel>>(lockersForGUI, HttpStatus.OK);
 	}
 
 }
