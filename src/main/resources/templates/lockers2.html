@@ -4,7 +4,7 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="css/locker.css" />
-	<script src="js/set-locker-status.js" type="text/javascript"></script>
+	<script src="js/set-locker-status-2.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -23,38 +23,22 @@
 	   		</div>
 
 			<div class="lockerItemRightSide">
-		        <!-- <form method="POST" class="rentingForm"
-		        	th:if="${item.rentedByEnum.toString() != 'RENTED_BY_YOU'}"
-		        	th:action="@{/rentLocker(id=${item.id})}">
-		        	
-			        <button type="submit" class="rentingButton"
-			        	th:text="#{'lockerstatus.' + __${item.rentedByEnum}__}"
-			        	th:disabled="${item.rentedByEnum.toString() != 'NOT_RENTED'}">
-			        	Error with the button!
-			        </button>
-		        </form>
-		        
-		        <form method="POST" class="rentingForm"
-		        	th:if="${item.rentedByEnum.toString() == 'RENTED_BY_YOU'}"
-		        	th:action="@{/releaseLocker(id=${item.id})}">
-		        	
-			        <button type="submit" class="rentingButton"
-			        	th:text="#{rented.release}">
-			        	Release!
-			        </button>
-		        </form>  -->
-		        
+			
 		        <button
 		        	class="rentingButton"
 		        	th:id="${item.id}"
 		        	th:text="#{'lockerstatus.' + __${item.rentedByEnum}__}">       
 		        </button>
 	        </div>
-	        
-	        
-	         
        </div>
 	</div>
+	
+	<script id="locker-container-template" type="text/x-handlebars-template">
+		{{#each content}}
+
+					<p>{{id}}</p>
+
+	</script>
 	
 </div>
 
