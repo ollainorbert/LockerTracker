@@ -26,7 +26,7 @@ $(document).ready(function() {
 				$("#reservation-list").empty();
 		        $("#reservation-list").append(h);              // insert the generated HTML into the document
 				
-		        //kappa
+		        
 		        
 //				var lockerContainer = $('#lockerContainer');
 //				lockerContainer.empty();
