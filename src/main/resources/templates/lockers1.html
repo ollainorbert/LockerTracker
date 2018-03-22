@@ -4,7 +4,7 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="css/locker.css" />
-	<!-- <script src="js/set-locker-status.js" type="text/javascript"></script> -->
+	<script src="js/set-locker-status.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 	   		</div>
 
 			<div class="lockerItemRightSide">
-		        <form method="POST" class="rentingForm"
+		        <!-- <form method="POST" class="rentingForm"
 		        	th:if="${item.rentedByEnum.toString() != 'RENTED_BY_YOU'}"
 		        	th:action="@{/rentLocker(id=${item.id})}">
 		        	
@@ -42,13 +42,13 @@
 			        	th:text="#{rented.release}">
 			        	Release!
 			        </button>
-		        </form>
+		        </form> -->
 		        
-		        <!-- <button
+		        <button
 		        	class="rentingButton"
 		        	th:id="${item.id}"
 		        	th:text="#{'lockerstatus.' + __${item.rentedByEnum}__}">       
-		        </button> -->
+		        </button>
 	        </div>
 	        
 	        

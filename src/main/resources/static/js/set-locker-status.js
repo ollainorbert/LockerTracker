@@ -8,7 +8,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			
-			url : '/lockersAjax/' + this.id,
+			url : '/lockersAjax1/' + this.id,
 			method : 'POST',
 			dataType : 'json',
 			async : true,

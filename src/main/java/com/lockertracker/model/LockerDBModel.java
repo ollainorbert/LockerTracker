@@ -8,6 +8,10 @@ import javax.persistence.Table;
 @Table(name = "Lockers")
 public class LockerDBModel extends BaseDBModel {
 
+	/**
+	 * Cannot be a foreign key, because if no one owns it, the value is null, and
+	 * any user's id cannot be null.
+	 */
 	@Column(nullable = true)
 	private Long rentedByUserId;
 

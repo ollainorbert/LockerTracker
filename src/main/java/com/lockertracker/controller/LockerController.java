@@ -69,6 +69,22 @@ public class LockerController {
 		return new ModelAndView(ViewConsts.ViewWithRedirect(ViewConsts.LOCKERS));
 	}
 
+	/**
+	 * ----------------------------------------------------------------------------------------------------------------
+	 * Ajax - jQuery tests
+	 * ----------------------------------------------------------------------------------------------------------------
+	 */
+
+	@RequestMapping("lockers1")
+	public ModelAndView lockers1(Principal principal) throws BaseLockerException {
+		List<LockerGUIModel> lockersForGUI = lockerService.getAllLockerWithUserBelongs(principal.getName());
+
+		ModelAndView modelAndView = new ModelAndView("lockers1");
+		modelAndView.addObject(PageAttributeConsts.Locker.LOCKERLIST, lockersForGUI);
+
+		return modelAndView;
+	}
+
 	@RequestMapping("lockers2")
 	public ModelAndView lockers2(Principal principal) throws BaseLockerException {
 		List<LockerGUIModel> lockersForGUI = lockerService.getAllLockerWithUserBelongs(principal.getName());
@@ -80,8 +96,8 @@ public class LockerController {
 	}
 
 	// lekerem id-bol, es meghatarozom hogy renting vagy releaseing
-	@RequestMapping(value = "/lockersAjax/{id}", method = RequestMethod.POST)
-	public ResponseEntity<List<LockerGUIModel>> testAjaxCall(Principal principal, @PathVariable("id") long id)
+	@RequestMapping(value = "/lockersAjax1/{id}", method = RequestMethod.POST)
+	public ResponseEntity<List<LockerGUIModel>> testAjaxCall1(Principal principal, @PathVariable("id") long id)
 			throws BaseLockerException {
 		lockerService.rentLocker(("" + id), principal.getName());
 
@@ -89,5 +105,21 @@ public class LockerController {
 
 		return new ResponseEntity<List<LockerGUIModel>>(lockersForGUI, HttpStatus.OK);
 	}
+
+	@RequestMapping(value = "/lockersAjax2/{id}", method = RequestMethod.POST)
+	public ResponseEntity<List<LockerGUIModel>> testAjaxCall2(Principal principal, @PathVariable("id") long id)
+			throws BaseLockerException {
+		lockerService.rentLocker(("" + id), principal.getName());
+
+		List<LockerGUIModel> lockersForGUI = lockerService.getAllLockerWithUserBelongs(principal.getName());
+
+		return new ResponseEntity<List<LockerGUIModel>>(lockersForGUI, HttpStatus.OK);
+	}
+
+	/**
+	 * ----------------------------------------------------------------------------------------------------------------
+	 * Ajax - jQuery tests
+	 * ----------------------------------------------------------------------------------------------------------------
+	 */
 
 }

@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			
-			url : '/lockersAjax/' + this.id,
+			url : '/lockersAjax2/' + this.id,
 			method : 'POST',
 			dataType : 'json',
 			async : true,
