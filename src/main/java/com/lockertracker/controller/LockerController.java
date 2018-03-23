@@ -3,6 +3,8 @@ package com.lockertracker.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import com.lockertracker.service.exception.locker.BaseLockerException;
 @Controller
 public class LockerController {
 	private LockerService lockerService;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	public void setLockerService(LockerService lockerService) {
@@ -34,6 +37,7 @@ public class LockerController {
 	@RequestMapping(RoutingConsts.LOCKERS)
 	public ModelAndView lockers(Principal principal) throws BaseLockerException {
 		List<LockerGUIModel> lockersForGUI = lockerService.getAllLockerWithUserBelongs(principal.getName());
+		lockersForGUI.forEach(x -> logger.info(x.toString()));
 
 		ModelAndView modelAndView = new ModelAndView(ViewConsts.LOCKERS);
 		modelAndView.addObject(PageAttributeConsts.Locker.LOCKERLIST, lockersForGUI);

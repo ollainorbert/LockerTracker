@@ -82,6 +82,8 @@ public class LockerServiceImpl implements LockerService {
 		}
 
 		List<LockerDBModel> lockersFromDB = lockerRepository.findAll();
+		lockersFromDB.forEach(x -> logger.info(x.toString()));
+
 		long userId = userDBModel.getId();
 
 		return lockerServiceHelper.convertDBtoGUI(lockersFromDB, userId);

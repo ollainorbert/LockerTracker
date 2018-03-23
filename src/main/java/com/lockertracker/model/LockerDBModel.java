@@ -4,6 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * There were ideas for Every Locker has an owner, I mean like there are a
+ * SystemAdmin, who owns all default; and where the Locker itself doesn't had
+ * rentedByUserId, there were a join table for this.
+ * 
+ * @author Norbert_Ollai
+ *
+ */
+
 @Entity
 @Table(name = "Lockers")
 public class LockerDBModel extends BaseDBModel {

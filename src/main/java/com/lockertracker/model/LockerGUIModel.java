@@ -1,5 +1,7 @@
 package com.lockertracker.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class LockerGUIModel {
 	public enum RentedByEnum {
 		NOT_RENTED, RENTED_BY_OTHER, RENTED_BY_YOU
@@ -42,6 +44,11 @@ public class LockerGUIModel {
 
 			this.setRentedByEnum(rentedBy);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 @MappedSuperclass
 public abstract class BaseDBModel {
 
@@ -37,5 +39,10 @@ public abstract class BaseDBModel {
 	@PrePersist
 	private void prePersist() {
 		this.setCreatedAt(new Date());
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 }
