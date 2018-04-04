@@ -57,6 +57,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 		// H2 DB-HEZ!
 		httpSecurity.csrf().disable();
 		httpSecurity.headers().frameOptions().disable();
+		
 		// H2 DB-HEZ!
 	}
 
